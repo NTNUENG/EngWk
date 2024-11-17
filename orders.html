@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>國立臺灣師範大學英語學系 2024 聖誕英語週點餐系統後臺</title>
+    <title>後臺｜國立臺灣師範大學英語學系 2024 聖誕英語週點餐系統</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wdth@87.5&display=swap" rel="stylesheet">
@@ -24,21 +24,24 @@
 
         .orderContainer {
             display: flex;
+            width: 100dvw;
+            height: calc(100dvh - var(--gap) * 2);
             scroll-snap-align: start;
             gap: calc(var(--gap) * 0.5);
             padding: calc(var(--gap) * 0.5);
+            padding-top: 0;
             overflow-y: auto;
-            width: 100dvw;
-            height: calc(100dvh - var(--gap) * 2);
+            scroll-snap-type: x mandatory;
+            scroll-padding: calc(var(--gap) * 0.5);
         }
 
         .orderCard {
+            scroll-snap-align: start;
             min-width: fit-content;
             height: fit-content;
             max-height: 100%;
             overflow-y: auto;
             padding: calc(var(--gap) * 0.75);
-            padding-top: 0;
             background: var(--details-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -71,28 +74,34 @@
         }
 
         #progress-bar-wrapper {
+            position: sticky;
+            top: calc(var(--gap) * 0.5);
             width: calc(100% - var(--gap));
+            height: var(--gap);
             margin: 0 auto;
+            background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+            background-size: 1rem 1rem;
             background-color: #ffffff57;
             border: 2px solid white;
             border-radius: calc(var(--gap) * 0.5);
             overflow: hidden;
-            height: var(--gap);
-            position: sticky;
-            top: calc(var(--gap) * 0.5);
         }
 
         #progress-bar {
             height: 100%;
-            background-color: white;
-            width: 0%;
-            transition: width 0.1s linear;
+            background-color: var(--primary);
+            width: 100%;
+            background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+            background-size: 1rem 1rem;
+            transition: width 1s linear;
         }
 
         @media only screen and (max-width: 600px) {
             .orderContainer {
                 flex-direction: column;
                 overflow-x: auto;
+                scroll-snap-type: y mandatory;
+                scroll-padding: 0;
             }
 
             .orderCard {
@@ -164,7 +173,7 @@
             'eton-mushroom': 45,
             'art-sticker': 15,
             'art-postcard': 25,
-            'art-folder': 25,
+            'art-folder': 55,
             'art-hang': 45,
         };
 
@@ -172,7 +181,7 @@
             'ㄖㄧ': '時間暫停熱壓吐司・',
             'ㄧㄉ': '撲克牌武士・',
             'ㄧㄌ': '飲料・',
-            'ㄇㄒ': '美宣・',
+            'ㄇㄒ': '美宣品・',
         }
 
         let total = 0;
@@ -293,7 +302,8 @@
                 }
 
                 const totalRow = document.createElement('tr');
-                totalRow.innerHTML = `<td class="final"  colspan="4">合計新臺幣 ${total} 元整</td>`;
+                totalRow.classList.add('final');
+                totalRow.innerHTML = `<td colspan="4">合計新臺幣<span class="priceTag">${total}</span>元整</td>`;
                 tbody.appendChild(totalRow);
 
                 itemList.appendChild(tbody);
@@ -304,7 +314,12 @@
 
 
         function generateOrderID(time, clerk) {
-            return '<span class="timestamp">#' + time.replace(/[^a-zA-Z0-9]/g, '').slice(6) + '</span>｜' + clerk;
+            let formattedTime = time.replace(/[^0-9]/g, '').slice(6);
+
+            if (formattedTime.length < 8)
+                formattedTime = formattedTime.slice(0, 2) + '0' + formattedTime.slice(2);
+
+            return '<span class="timestamp">#' + formattedTime + '</span>｜' + clerk;
         }
 
         function fullName(raw) {
@@ -319,31 +334,32 @@
         }
 
         const CLASS_TIME_INTERVAL = 600000; // 600 seconds
-        const BREAK_TIME_INTERVAL = 20000; // 20 seconds
+        const BREAK_TIME_INTERVAL = 60000; // 60 seconds
+        const progressBar = document.getElementById("progress-bar");
 
         const schedule = {
             classTime: [
-                { start: "07:30", end: "09:00" },
-                { start: "09:11", end: "10:00" },
-                { start: "10:21", end: "11:10" },
-                { start: "11:21", end: "12:10" },
-                { start: "12:21", end: "13:10" },
-                { start: "13:21", end: "14:10" },
-                { start: "14:21", end: "15:10" },
-                { start: "15:31", end: "16:20" },
-                { start: "16:31", end: "17:20" },
+                { start: "07:30", end: "08:59" },
+                { start: "09:11", end: "10:59" },
+                { start: "10:21", end: "11:09" },
+                { start: "11:21", end: "12:09" },
+                { start: "12:21", end: "13:09" },
+                { start: "13:21", end: "14:09" },
+                { start: "14:21", end: "15:09" },
+                { start: "15:31", end: "16:19" },
+                { start: "16:31", end: "17:19" },
                 { start: "17:31", end: "18:00" },
             ],
             breakTime: [
-                { start: "09:01", end: "09:10" },
-                { start: "10:01", end: "10:20" },
-                { start: "11:11", end: "11:20" },
-                { start: "12:11", end: "12:20" },
-                { start: "13:11", end: "13:20" },
-                { start: "14:11", end: "14:20" },
-                { start: "15:11", end: "15:30" },
-                { start: "16:21", end: "16:30" },
-                { start: "17:21", end: "17:30" },
+                { start: "09:00", end: "09:10" },
+                { start: "10:00", end: "10:20" },
+                { start: "11:10", end: "11:20" },
+                { start: "12:10", end: "12:20" },
+                { start: "13:10", end: "13:20" },
+                { start: "14:10", end: "14:20" },
+                { start: "15:10", end: "15:30" },
+                { start: "16:20", end: "16:30" },
+                { start: "17:20", end: "17:30" },
             ]
         };
 
@@ -380,26 +396,24 @@
         function setDynamicReload() {
             const currentPeriod = getCurrentPeriod();
             const interval = currentPeriod === "classTime" ? CLASS_TIME_INTERVAL : BREAK_TIME_INTERVAL;
-
-            const progressBar = document.getElementById("progress-bar");
-            let elapsed = 0;
+            let elapsed = 1000;
 
             const refreshInterval = setInterval(() => {
-                elapsed += 100;
-                const progress = 100 - (elapsed / interval) * 90;
+                elapsed += 1000;
+                const progress = 100 - (elapsed / interval) * 100;
                 progressBar.style.width = `${progress}%`;
 
                 if (currentPeriod != getCurrentPeriod() && currentPeriod === "classTime") {
                     location.reload();
                 }
 
-                if (elapsed >= interval) {
+                if (elapsed > interval) {
                     clearInterval(refreshInterval);
                     location.reload();
                 }
-            }, 100);
+            }, 1000);
 
-            console.log(`Page will reload every ${interval / 1000} seconds (${currentPeriod}).`);
+            //console.log(`Page will reload every ${interval / 1000} seconds (${currentPeriod}).`);
 
             setTimeout(() => {
                 location.reload();
@@ -407,6 +421,7 @@
         }
 
         setDynamicReload();
+        progressBar.style.backgroundColor = getCurrentPeriod() === "classTime" ? 'var(--primary)' : 'var(--teritary)';
     </script>
 </body>
 </html>

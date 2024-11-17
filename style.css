@@ -4,8 +4,9 @@
     --border: #77786a;
     --error: #ba1a1a;
     --details-bg: #fbfaed7b;
-    --dedails-card-bg: none;
+    --surface: #fbfaed;
     --primary: #59631f;
+    --teritary: #3b665b;
     --shadow: #c8c7b7;
     --gap: min(60vh, 20px);
     --sans-serif: 'PingFang TC', 'MisansTC', sans-serif;
@@ -18,10 +19,10 @@
     padding: 0;
     border: none;
     font-family: inherit;
+    scroll-behavior: smooth;
 }
 
 body {
-    scroll-behavior: smooth;
     font-family: var(--sans-serif);
     color: var(--color);
     font-size: 20px;
@@ -76,23 +77,20 @@ h2 {
     gap: calc(var(--gap) * 0.5);
 }
 
-    .header h1 {
-        font-size: 2.5em;
-    }
-
     .header.fullscreen {
         min-height: 100dvh;
     }
 
 input {
     width: 100%;
+    background-color: var(--surface);
     border-radius: calc(var(--gap) * 0.1);
     font-size: 1rem;
     line-height: 2rem;
     color: inherit;
     outline: none;
     text-align: inherit;
-    transition: border 0.5s ease, box-shadow 0.2s ease, background 0.2s ease;
+    transition: border 0.5s ease, box-shadow 0.2s ease;
 }
 
     input[type=number] {
@@ -119,6 +117,10 @@ input {
         border: none;
         border-radius: calc(var(--gap) * 0.2);
         box-shadow: 0 0 calc(var(--gap) * 0.5) var(--error);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(.375em + .1875rem) center;
+        background-size: calc(.75em + .375rem) calc(.75em + .375rem);
     }
 
 .container {
@@ -147,7 +149,7 @@ input {
     }
 
     .container input {
-        background: none;
+        background-color: transparent;
         margin-top: calc(var(--gap) * 0.5);
         font-family: var(--monospace);
     }
@@ -192,6 +194,14 @@ ruby {
     cursor: pointer;
 }
 
+.hanLatin, .priceTag {
+    padding: 0 0.25em;
+}
+
+.priceTag {
+    font-family: var(--monospace);
+}
+
 .receipt {
     display: none;
     height: calc(100dvh - var(--gap) * 2);
@@ -211,8 +221,11 @@ table {
         font-weight: bold;
     }
 
-    table td {
+    table tr {
         border-bottom: 1px solid var(--border);
+    }
+
+    table td {
         padding: 0.25em;
     }
 
@@ -220,14 +233,15 @@ table {
         transition: background-color 0.2s ease;
     }
 
-    table tbody tr:hover {
-        background-color: #c8c7b7;
+    table tbody tr:not(.final):hover {
+        background-color: #0000001a;
     }
 
-    table tbody td.final {
-        text-align: center;
-        border: none;
-    }
+        table tbody tr.final {
+            font-family: var(--sans-serif);
+            text-align: center;
+            border: none;
+        }
 
     table thead td.name {
         text-align: center;
