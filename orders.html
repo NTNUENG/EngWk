@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國立臺灣師範大學英語學系 2024 聖誕英語週點餐系統後臺</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wdth@87.5&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wdth@87.5&display=swap" rel="stylesheet">
+    <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Normal.min.css" />
+    <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Bold.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .scrollBody {
+            scroll-padding: 0;
+            padding: 0;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .orderContainer {
+            display: flex;
+            scroll-snap-align: start;
+            gap: calc(var(--gap) * 0.5);
+            padding: calc(var(--gap) * 0.5);
+            overflow-y: auto;
+            width: 100dvw;
+            height: calc(100dvh - var(--gap) * 2);
+        }
+
+        .orderCard {
+            min-width: fit-content;
+            height: fit-content;
+            max-height: 100%;
+            overflow-y: auto;
+            padding: calc(var(--gap) * 0.75);
+            padding-top: 0;
+            background: var(--details-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow);
+            white-space: nowrap;
+        }
+
+            .orderCard h3 {
+                margin: 0 0 10px;
+            }
+
+            .orderCard ul {
+                list-style-type: none;
+            }
+
+            .orderCard li {
+                margin-bottom: 0.5em;
+            }
+
+        .orderID {
+            font-size: 70%;
+            opacity: 70%;
+            color: var(--primary);
+            margin-bottom: 1em;
+        }
+
+        .timestamp {
+            font-family: var(--monospace);
+        }
+
+        #progress-bar-wrapper {
+            width: calc(100% - var(--gap));
+            margin: 0 auto;
+            background-color: #ffffff57;
+            border: 2px solid white;
+            border-radius: calc(var(--gap) * 0.5);
+            overflow: hidden;
+            height: var(--gap);
+            position: sticky;
+            top: calc(var(--gap) * 0.5);
+        }
+
+        #progress-bar {
+            height: 100%;
+            background-color: white;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .orderContainer {
+                flex-direction: column;
+                overflow-x: auto;
+            }
+
+            .orderCard {
+                width: auto;
+                height: auto;
+                padding: calc(var(--gap) * 0.75);
+                background: var(--details-bg);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border-radius: 8px;
+                box-shadow: 0 4px 8px var(--shadow);
+                white-space: nowrap;
+                overflow-y: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blurred-bg"></div>
+
+    <div class="scrollBody">
+        <div class="header fullscreen" id="top">
+            <h1>聖誕英語週點餐系統後臺</h1>
+            <div id="progress-bar-wrapper">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="orderContainer" id="order-container">
+            <!-- Orders will be dynamically added here -->
+        </div>
+    </div>
+    <script>
+        const itemid = {
+            'ry-naisu': 'ㄖㄧ奶酥',
+            'ry-hsiangsuan': 'ㄖㄧ香蒜',
+            'ry-choco': 'ㄖㄧ巧克力棉花糖',
+            'ry-ham': 'ㄖㄧ火腿起司',
+            'eton-oreo': 'ㄧㄉOreo',
+            'eton-choco': 'ㄧㄉ巧克力醬＋棉花糖',
+            'eton-matcha': 'ㄧㄉ抹茶紅豆',
+            'eton-ew': 'ㄧㄉ草莓果醬＋果乾',
+            'eton-coco': 'ㄧㄌ可可',
+            'eton-milktea': 'ㄧㄌ奶茶',
+            'eton-coffee': 'ㄧㄌ咖啡',
+            'eton-black': 'ㄧㄌ紅茶',
+            'eton-cottonchoco': 'ㄧㄌ棉花糖可可',
+            'eton-mushroom': 'ㄧㄌ蘑菇濃湯',
+            'art-sticker': 'ㄇㄒ貼紙',
+            'art-postcard': 'ㄇㄒ明信片',
+            'art-folder': 'ㄇㄒ檔案夾',
+            'art-hang': 'ㄇㄒ吊飾',
+        };
+
+        const itemprice = {
+            'ry-naisu': 25,
+            'ry-hsiangsuan': 30,
+            'ry-choco': 30,
+            'ry-ham': 35,
+            'eton-oreo': 35,
+            'eton-choco': 35,
+            'eton-matcha': 40,
+            'eton-ew': 40,
+            'eton-coco': 30,
+            'eton-milktea': 30,
+            'eton-coffee': 30,
+            'eton-black': 30,
+            'eton-cottonchoco': 35,
+            'eton-mushroom': 45,
+            'art-sticker': 15,
+            'art-postcard': 25,
+            'art-folder': 25,
+            'art-hang': 45,
+        };
+
+        const itemtype = {
+            'ㄖㄧ': '時間暫停熱壓吐司・',
+            'ㄧㄉ': '撲克牌武士・',
+            'ㄧㄌ': '飲料・',
+            'ㄇㄒ': '美宣・',
+        }
+
+        let total = 0;
+
+        const orderContainer = document.getElementById('order-container');
+
+        const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQeHdTsL6TnBGQimkS2NQUYJ9Vr6qBQRVwLfY0TMX4XYooThZ-QuhZdqPCmFWXbL80isg7dHihOn_DI/pub?output=csv";
+        fetch(url)
+            .then(r => r.text())
+            .then(t => csvToJson(t));
+
+        let output = "";
+        function csvToJson(csvString) {
+            const rows = csvString.split("\n");
+            const headers = rows[0].split(",");
+            const jsonData = [];
+            for (let i = 1; i < rows.length; i++) {
+                const values = rows[i].split(",");
+                const obj = {};
+                for (let j = 0; j < headers.length; j++) {
+                    const key = headers[j].trim();
+                    const value = values[j].trim();
+                    obj[key] = value;
+                }
+                jsonData.push(obj);
+            }
+            output = JSON.stringify(jsonData);
+            displayReceipt()
+        }
+
+        function displayReceipt() {
+            let reversedOutput;
+            try {
+                reversedOutput = JSON.parse(output).reverse();
+            } catch (error) {
+                console.error('Invalid JSON:', error);
+                return;
+            }
+
+            reversedOutput.forEach(order => {
+                let total = 0;
+                let boughtRuhyah = 0;
+                let boughtEton = 0;
+                let boughtDrinks = 0;
+                let discountA = 0;
+                let discountB = 0;
+
+                const card = document.createElement('div');
+                card.classList.add('orderCard');
+
+                const orderID = document.createElement('p');
+                orderID.classList.add('orderID');
+                orderID.innerHTML = generateOrderID(order.timestamp, order.clerk);
+                card.appendChild(orderID);
+
+                const itemList = document.createElement('table');
+                const thead = document.createElement('thead');
+                thead.innerHTML = `<tr><td class="name">品名</td><td>數量</td><td>單價</td><td>總價</td></tr>`;
+                itemList.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+                for (const [key, value] of Object.entries(order)) {
+                    const quantity = parseInt(value);
+                    if (value > 0 && key !== 'timestamp' && key !== 'clerk') {
+                        if (itemid[key] && itemprice[key]) {
+                            const item = document.createElement('tr');
+                            const name = fullName(itemid[key]);
+                            const PxQ = itemprice[key] * quantity;
+                            total += PxQ;
+
+                            const arr = [name, quantity, itemprice[key], PxQ].map(e => {
+                                const nameStyle = isNaN(e) ? ' class="name"' : '';
+                                return `<td${nameStyle}>${e}</td>`;
+                            });
+
+                            item.innerHTML = arr.join('');
+                            tbody.appendChild(item);
+
+                            if (name.startsWith('時間暫停熱壓吐司'))
+                                boughtRuhyah += quantity;
+                            else if (name.startsWith('撲克牌武士'))
+                                boughtEton += quantity;
+                            else if (name.startsWith('飲料')) {
+                                boughtDrinks += quantity;
+                            }
+                        } else {
+                            console.warn(`Missing item information for key: ${key}`);
+                        }
+                    }
+                }
+                    
+                discountA += Math.min(boughtRuhyah, boughtDrinks);
+                boughtDrinks -= discountA;
+                discountB += Math.min(boughtEton, boughtDrinks);
+
+                if (discountA > 0) {
+                    const item = document.createElement('tr');
+                    const arr = ['Ａ套餐優惠', discountA, -5, discountA * -5].map(e => {
+                        const nameStyle = isNaN(e) ? ' class="name"' : '';
+                        return `<td${nameStyle}>${e}</td>`;
+                    });
+                    item.innerHTML = arr.join('');
+                    tbody.appendChild(item);
+
+                    total += discountA * -5;
+                }
+
+                if (discountB > 0) {
+                    const item = document.createElement('tr');
+                    const arr = ['Ｂ套餐優惠', discountB, -5, discountB * -5].map(e => {
+                        const nameStyle = isNaN(e) ? ' class="name"' : '';
+                        return `<td${nameStyle}>${e}</td>`;
+                    });
+                    item.innerHTML = arr.join('');
+                    tbody.appendChild(item);
+
+                    total += discountB * -5;
+                }
+
+                const totalRow = document.createElement('tr');
+                totalRow.innerHTML = `<td class="final"  colspan="4">合計新臺幣 ${total} 元整</td>`;
+                tbody.appendChild(totalRow);
+
+                itemList.appendChild(tbody);
+                card.appendChild(itemList);
+                orderContainer.appendChild(card);
+            });
+        }
+
+
+        function generateOrderID(time, clerk) {
+            return '<span class="timestamp">#' + time.replace(/[^a-zA-Z0-9]/g, '').slice(6) + '</span>｜' + clerk;
+        }
+
+        function fullName(raw) {
+            let processed;
+
+            for (const [key, value] of Object.entries(itemtype)) {
+                if (raw.includes(key))
+                    processed = raw.replace(key, value);
+            }
+
+            return processed;
+        }
+
+        const CLASS_TIME_INTERVAL = 600000; // 600 seconds
+        const BREAK_TIME_INTERVAL = 20000; // 20 seconds
+
+        const schedule = {
+            classTime: [
+                { start: "07:30", end: "09:00" },
+                { start: "09:11", end: "10:00" },
+                { start: "10:21", end: "11:10" },
+                { start: "11:21", end: "12:10" },
+                { start: "12:21", end: "13:10" },
+                { start: "13:21", end: "14:10" },
+                { start: "14:21", end: "15:10" },
+                { start: "15:31", end: "16:20" },
+                { start: "16:31", end: "17:20" },
+                { start: "17:31", end: "18:00" },
+            ],
+            breakTime: [
+                { start: "09:01", end: "09:10" },
+                { start: "10:01", end: "10:20" },
+                { start: "11:11", end: "11:20" },
+                { start: "12:11", end: "12:20" },
+                { start: "13:11", end: "13:20" },
+                { start: "14:11", end: "14:20" },
+                { start: "15:11", end: "15:30" },
+                { start: "16:21", end: "16:30" },
+                { start: "17:21", end: "17:30" },
+            ]
+        };
+
+        function isCurrentTimeInRange(startTime, endTime) {
+            const now = new Date();
+            const current = now.getHours() * 60 + now.getMinutes();
+            const [startH, startM] = startTime.split(":").map(Number);
+            const [endH, endM] = endTime.split(":").map(Number);
+
+            const start = startH * 60 + startM;
+            const end = endH * 60 + endM;
+
+            return current >= start && current < end;
+        }
+
+        function getCurrentPeriod() {
+            const now = new Date();
+
+            for (const period of schedule.classTime) {
+                if (isCurrentTimeInRange(period.start, period.end)) {
+                    return "classTime";
+                }
+            }
+
+            for (const period of schedule.breakTime) {
+                if (isCurrentTimeInRange(period.start, period.end)) {
+                    return "breakTime";
+                }
+            }
+
+            return "classTime";
+        }
+
+        function setDynamicReload() {
+            const currentPeriod = getCurrentPeriod();
+            const interval = currentPeriod === "classTime" ? CLASS_TIME_INTERVAL : BREAK_TIME_INTERVAL;
+
+            const progressBar = document.getElementById("progress-bar");
+            let elapsed = 0;
+
+            const refreshInterval = setInterval(() => {
+                elapsed += 100;
+                const progress = 100 - (elapsed / interval) * 90;
+                progressBar.style.width = `${progress}%`;
+
+                if (currentPeriod != getCurrentPeriod() && currentPeriod === "classTime") {
+                    location.reload();
+                }
+
+                if (elapsed >= interval) {
+                    clearInterval(refreshInterval);
+                    location.reload();
+                }
+            }, 100);
+
+            console.log(`Page will reload every ${interval / 1000} seconds (${currentPeriod}).`);
+
+            setTimeout(() => {
+                location.reload();
+            }, interval);
+        }
+
+        setDynamicReload();
+    </script>
+</body>
+</html>

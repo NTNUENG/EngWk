@@ -10,228 +10,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wdth@87.5&display=swap" rel="stylesheet">
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Normal.min.css" />
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Bold.min.css" />
-    <style>
-        :root {
-            --bg: #f0f0f0;
-            --color: #555;
-            --title-color: #444;
-            --border: #ddd;
-            --card-bg: #fff;
-            --details-bg: #f9f9f9;
-            --dedails-card-bg: #fefefe;
-            --line-icon-disabled: #555;
-            --terminal-station-id-color: #fff;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #212124;
-                --color: #d2d2d9;
-                --title-color: #a7a7b2;
-                --border: #404050;
-                --card-bg: #2a2a2e;
-                --details-bg: #262629;
-                --dedails-card-bg: #303035;
-                --line-icon-disabled: #888;
-                --terminal-station-id-color: #212124;
-                --shadow: rgba(255, 255, 255, 0.05);
-            }
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            border: none;
-        }
-
-        body {
-            --gap: min(60vh, 20px);
-            --sans-serif: 'Noto Sans Display', 'PingFang TC', 'MisansTC', sans-serif;
-            --monospace: 'Noto Sans Mono', monospace;
-            scroll-behavior: smooth;
-            font-family: var(--sans-serif);
-            background: var(--bg);
-            color: var(--color);
-            font-size: 20px;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                font-size: 14px;
-            }
-        }
-
-        form {
-            width: 100dvw;
-            height: 100dvh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            scroll-padding: var(--gap);
-            padding: var(--gap);
-        }
-
-        h1, h2, h3 {
-            color: var(--title-color);
-            margin-bottom: var(--gap);
-        }
-
-        h2 {
-            line-height: 1.5em;
-            border-bottom: solid;
-        }
-
-        .header {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-            scroll-snap-align: start;
-            margin: 0 auto;
-            gap: var(--gap);
-        }
-
-            .header h1 {
-                font-size: 2.5em;
-            }
-
-        input {
-            width: 100%;
-            border-bottom: calc(var(--gap) * 0.1) solid var(--border);
-            border-radius: calc(var(--gap) * 0.1);
-            font-size: 1rem;
-            line-height: 2rem;
-            background: var(--dedails-card-bg);
-            color: inherit;
-            text-align: inherit;
-            transition: border 0.5s ease, box-shadow 0.2s ease;
-        }
-
-            input[type=number] {
-                -moz-appearance: textfield;
-                appearance: textfield;
-            }
-
-                input[type=number]::-webkit-inner-spin-button,
-                input[type=number]::-webkit-outer-spin-button {
-                    -webkit-appearance: none;
-                }
-
-            input:hover {
-                box-shadow: 0 0 calc(var(--gap) * 0.5) var(--border);
-            }
-
-            input:focus {
-                border-radius: calc(var(--gap) * 0.2);
-                border-bottom: calc(var(--gap) * 0.2) solid yellow;
-                outline: none;
-                box-shadow: 0 0 calc(var(--gap) * 0.5) var(--border);
-            }
-
-            input:invalid {
-                border: 1px solid red;
-            }
-
-        .container {
-            width: 100%;
-            max-width: 1000px;
-            min-height: calc(50dvh - var(--gap) * 2);
-            scroll-snap-align: start;
-            margin: calc(var(--gap) * 2) auto;
-            padding: calc(var(--gap) * 0.5);
-            background: var(--details-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px var(--shadow);
-        }
-
-            .container input {
-                font-family: var(--monospace);
-            }
-
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(40dvw, 200px), 1fr));
-            gap: var(--gap);
-        }
-
-        fieldset {
-            text-align: center;
-        }
-
-            fieldset h2 {
-                text-align: left;
-            }
-
-        legend {
-            display: none;
-        }
-
-        .item-name {
-        }
-
-        ruby {
-            display: block ruby;
-            ruby-position: under;
-        }
-
-            ruby rt {
-                font-family: var(--monospace);
-                font-size: 70%;
-                opacity: 70%;
-            }
-
-        .btn {
-            padding: calc(var(--gap) * 0.5);
-            border: none;
-            cursor: pointer;
-        }
-
-        .receipt {
-            display: none;
-            height: calc(100dvh - var(--gap) * 2);
-            overflow-y: auto;
-        }
-
-        table, table tr, table td {
-            border: 1px solid #ffffff3b;
-            border-collapse: collapse;
-            text-align: right;
-            font-family: var(--monospace);
-            padding: 0.23em;
-        }
-
-            table thead {
-                font-weight: bold;
-            }
-
-            table td.name {
-                text-align: left;
-                font-family: var(--sans-serif);
-            }
-    </style>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="blurred-bg"></div>
+
     <form action="https://docs.google.com/forms/d/e/1FAIpQLSf-A4ReWwACpnJNrCWcpBdo2z2KgOrQSVv16Jr0RHKEY4_S2g/formResponse"
           target="_self"
           id="bootstrapForm"
           method="POST">
 
-        <div class="header">
+        <div class="header" id="top">
             <h1>聖誕英語週點餐系統</h1>
 
             <!-- Field type: "short" id: "1028344047" -->
             <fieldset style="display: block">
                 <legend for="1028344047">收銀員</legend>
-                <div class="item-name" style="margin-bottom: calc(var(--gap) * 0.5)">收銀員華文姓名</div>
-                <input id="1726360308" style="width: auto" type="text" name="entry.1726360308" class="form-control" required>
+                <input id="1726360308" style="width: auto" type="text" name="entry.1726360308" placeholder="收銀員華文姓名" class="form-control" required>
             </fieldset>
         </div>
 
-        <div class="container">
+        <div class="container" id="ry">
             <!-- Field type: "section" id: "854395890" -->
             <fieldset style="display: block;">
                 <h2 for="854395890">時間暫停熱壓吐司</h2>
@@ -242,33 +41,33 @@
                 <fieldset>
                     <legend for="788998900">ㄖㄧ奶酥</legend>
                     <ruby>奶酥<rt>25$</rt></ruby>
-                    <input id="1293379201" type="number" name="entry.1293379201" class="form-control" data-name="時間暫停熱壓吐司・奶酥" data-price="25">
+                    <input id="1293379201" type="number" name="entry.1293379201" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・奶酥" data-price="25">
                 </fieldset>
 
                 <!-- Field type: "short" id: "282590697" -->
                 <fieldset>
                     <legend for="282590697">ㄖㄧ香蒜</legend>
                     <ruby>香蒜<rt>30$</rt></ruby>
-                    <input id="1152234688" type="number" name="entry.1152234688" class="form-control" data-name="時間暫停熱壓吐司・香蒜" data-price="30">
+                    <input id="1152234688" type="number" name="entry.1152234688" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・香蒜" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "224487495" -->
                 <fieldset>
                     <legend for="224487495">ㄖㄧ巧克力</legend>
                     <ruby>巧克力棉花糖<rt>30$</rt></ruby>
-                    <input id="312838004" type="number" name="entry.312838004" class="form-control" data-name="時間暫停熱壓吐司・巧克力棉花糖" data-price="30">
+                    <input id="312838004" type="number" name="entry.312838004" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・巧克力棉花糖" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "1704765215" -->
                 <fieldset>
                     <legend for="1704765215">ㄖㄧ火腿</legend>
                     <ruby>火腿起司<rt>35$</rt></ruby>
-                    <input id="219553379" type="number" name="entry.219553379" class="form-control" data-name="時間暫停熱壓吐司・火腿起司" data-price="35">
+                    <input id="219553379" type="number" name="entry.219553379" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・火腿起司" data-price="35">
                 </fieldset>
             </div>
         </div>
 
-        <div class="container">
+        <div class="container" id="et">
             <!-- Field type: "section" id: "1082036472" -->
             <fieldset style="display: block;">
                 <h2 for="1082036472">撲克牌武士</h2>
@@ -279,36 +78,36 @@
                 <fieldset>
                     <legend for="397234414">ㄧㄉOreo</legend>
                     <ruby>♤ Oreo<rt>35$</rt></ruby>
-                    <input id="2110937824" type="number" name="entry.2110937824" class="form-control" data-name="撲克牌武士・Oreo" data-price="35">
+                    <input id="2110937824" type="number" name="entry.2110937824" placeholder="0" class="form-control" data-name="撲克牌武士・Oreo" data-price="35">
                 </fieldset>
 
                 <!-- Field type: "short" id: "1436610486" -->
                 <fieldset>
                     <legend for="1436610486">ㄧㄉ巧克力</legend>
                     <ruby>◇ 巧克力醬＋棉花糖<rt>35$</rt></ruby>
-                    <input id="476499688" type="number" name="entry.476499688" class="form-control" data-name="撲克牌武士・巧克力醬＋棉花糖" data-price="35">
+                    <input id="476499688" type="number" name="entry.476499688" placeholder="0" class="form-control" data-name="撲克牌武士・巧克力醬＋棉花糖" data-price="35">
                 </fieldset>
 
                 <!-- Field type: "short" id: "1608265025" -->
                 <fieldset>
                     <legend for="1608265025">ㄧㄉ抹茶</legend>
                     <ruby>♧ 抹茶紅豆<rt>40$</rt></ruby>
-                    <input id="1432997229" type="number" name="entry.1432997229" class="form-control" data-name="撲克牌武士・抹茶紅豆" data-price="40">
+                    <input id="1432997229" type="number" name="entry.1432997229" placeholder="0" class="form-control" data-name="撲克牌武士・抹茶紅豆" data-price="40">
                 </fieldset>
 
                 <!-- Field type: "short" id: "924501392" -->
                 <fieldset>
                     <legend for="924501392">ㄧㄉ草莓</legend>
                     <ruby>♡ 草莓果醬＋果乾<rt>40$</rt></ruby>
-                    <input id="2078319371" type="number" name="entry.2078319371" class="form-control" data-name="撲克牌武士・草莓果醬＋果乾" data-price="40">
+                    <input id="2078319371" type="number" name="entry.2078319371" placeholder="0" class="form-control" data-name="撲克牌武士・草莓果醬＋果乾" data-price="40">
                 </fieldset>
             </div>
         </div>
 
-        <div class="container">
+        <div class="container" id="dr">
             <!-- Field type: "section" id: "1720670259" -->
             <fieldset style="display: block;">
-                <h2 for="1720670259">飲料類</h2>
+                <h2 for="1720670259">飲料</h2>
             </fieldset>
 
             <div class="menu">
@@ -316,42 +115,42 @@
                 <fieldset>
                     <legend for="146021213">ㄧㄌ可可</legend>
                     <ruby>可可<rt>30$</rt></ruby>
-                    <input id="576114498" type="number" name="entry.576114498" class="form-control" data-name="飲料・可可" data-price="30">
+                    <input id="576114498" type="number" name="entry.576114498" placeholder="0" class="form-control" data-name="飲料・可可" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "301739864" -->
                 <fieldset>
                     <legend for="301739864">ㄧㄌ奶茶</legend>
                     <ruby>奶茶<rt>30$</rt></ruby>
-                    <input id="362036548" type="number" name="entry.362036548" class="form-control" data-name="飲料・奶茶" data-price="30">
+                    <input id="362036548" type="number" name="entry.362036548" placeholder="0" class="form-control" data-name="飲料・奶茶" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "506716195" -->
                 <fieldset>
                     <legend for="506716195">ㄧㄌ咖啡</legend>
                     <ruby>咖啡<rt>30$</rt></ruby>
-                    <input id="3695229" type="number" name="entry.3695229" class="form-control" data-name="飲料・咖啡" data-price="30">
+                    <input id="3695229" type="number" name="entry.3695229" placeholder="0" class="form-control" data-name="飲料・咖啡" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "1721585757" -->
                 <fieldset>
                     <legend for="1721585757">ㄧㄌ紅茶</legend>
                     <ruby>紅茶<rt>30$</rt></ruby>
-                    <input id="263894104" type="number" name="entry.263894104" class="form-control" data-name="飲料・紅茶" data-price="30">
+                    <input id="263894104" type="number" name="entry.263894104" placeholder="0" class="form-control" data-name="飲料・紅茶" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "528786601" -->
                 <fieldset>
                     <legend for="528786601">ㄧㄌ棉花糖</legend>
                     <ruby>棉花糖可可<rt>35$</rt></ruby>
-                    <input id="1436805870" type="number" name="entry.1436805870" class="form-control" data-name="飲料・棉花糖可可" data-price="35">
+                    <input id="1436805870" type="number" name="entry.1436805870" placeholder="0" class="form-control" data-name="飲料・棉花糖可可" data-price="35">
                 </fieldset>
 
                 <!-- Field type: "short" id: "607958717" -->
                 <fieldset>
                     <legend for="607958717">ㄧㄌ蘑菇</legend>
                     <ruby>蘑菇濃湯<rt>45$</rt></ruby>
-                    <input id="22730490" type="number" name="entry.22730490" class="form-control" data-name="飲料・蘑菇濃湯" data-price="45">
+                    <input id="22730490" type="number" name="entry.22730490" placeholder="0" class="form-control" data-name="飲料・蘑菇濃湯" data-price="45">
                 </fieldset>
             </div>
         </div>
@@ -367,28 +166,28 @@
                 <fieldset>
                     <legend for="930259876">ㄇㄒ貼紙</legend>
                     <ruby>貼紙<rt>15$</rt></ruby>
-                    <input id="1485386383" type="number" name="entry.1485386383" class="form-control" data-name="美宣品・貼紙" data-price="15">
+                    <input id="1485386383" type="number" name="entry.1485386383" placeholder="0" class="form-control" data-name="美宣品・貼紙" data-price="15">
                 </fieldset>
 
                 <!-- Field type: "short" id: "261692789" -->
                 <fieldset>
                     <legend for="261692789">ㄇㄒ明信片</legend>
                     <ruby>明信片<rt>25$</rt></ruby>
-                    <input id="1866350321" type="number" name="entry.1866350321" class="form-control" data-name="美宣品・明信片" data-price="25">
+                    <input id="1866350321" type="number" name="entry.1866350321" placeholder="0" class="form-control" data-name="美宣品・明信片" data-price="25">
                 </fieldset>
 
                 <!-- Field type: "short" id: "1063157919" -->
                 <fieldset>
                     <legend for="1063157919">ㄇㄒ檔案夾</legend>
                     <ruby>檔案夾<rt>55$</rt></ruby>
-                    <input id="729785754" type="number" name="entry.729785754" class="form-control" data-name="美宣品・檔案夾" data-price="55">
+                    <input id="729785754" type="number" name="entry.729785754" placeholder="0" class="form-control" data-name="美宣品・檔案夾" data-price="55">
                 </fieldset>
 
                 <!-- Field type: "short" id: "407652816" -->
                 <fieldset>
                     <legend for="407652816">ㄇㄒ吊飾</legend>
                     <ruby>吊飾<rt>45$</rt></ruby>
-                    <input id="1631742395" type="number" name="entry.1631742395" class="form-control" data-name="美宣品・吊飾" data-price="45">
+                    <input id="1631742395" type="number" name="entry.1631742395" placeholder="0" class="form-control" data-name="美宣品・吊飾" data-price="45">
                 </fieldset>
             </div>
         </div>
@@ -396,17 +195,17 @@
         <input type="hidden" name="fvv" value="1">
         <input type="hidden" name="fbzx" value="-7408342391169980571">
         <!--
-        CAVEAT: In multipages (multisection) forms, *pageHistory* field tells to google what sections we've currently completed.
-        This usually starts as "0" for the first page, then "0,1" in the second page... up to "0,1,2..N" in n-th page.
-        Keep this in mind if you plan to change this code to recreate any sort of multipage-feature in your exported form.
-        We're setting this to the total number of pages in this form because we're sending all fields from all the section together.
-    -->
+            CAVEAT: In multipages (multisection) forms, *pageHistory* field tells to google what sections we've currently completed.
+            This usually starts as "0" for the first page, then "0,1" in the second page... up to "0,1,2..N" in n-th page.
+            Keep this in mind if you plan to change this code to recreate any sort of multipage-feature in your exported form.
+            We're setting this to the total number of pages in this form because we're sending all fields from all the section together.
+        -->
         <input type="hidden" name="pageHistory" value="0,1,2,3,4">
 
-        <div class="header" style="height: auto; max-width: 1000px">
-            <div id="total">總金額：0 元</div>
-            <input class="btn" type="reset" value="取消訂單" onclick="resetInputs">
-            <input class="btn" type="submit" value="提交">
+        <div class="container fullscreen flex">
+            <div id="total" style="font-size: 2em; font-weight: bold">總金額：0 元</div>
+            <input class="btn" type="button" value="重新" onclick="resetInputs()" style="background: #ffdad6;color: #410002;font-weight: bold;">
+            <input class="btn" type="submit" value="提交" id="submit-button" style="background: #ddea96;color: #191e00;font-weight: bold;">
         </div>
 
         <div class="container receipt" id="receipt">
@@ -425,6 +224,7 @@
     <script>
         const form = document.getElementById('bootstrapForm');
         const totalElement = document.getElementById('total');
+        const submitButton = document.getElementById('submit-button');
         const receipt = document.getElementById('receipt');
         const receiptItems = document.getElementById('receipt-table');
         const totalReceipt = document.getElementById('total-receipt');
@@ -443,7 +243,10 @@
         let discountA = 0;
         let discountB = 0;
 
+        resetVariables();
+
         function resetVariables() {
+            receipt.style.display = 'none';
             receiptItems.innerHTML = '';
             arrayName = new Array();
             arrayQuantity = new Array();
@@ -455,28 +258,38 @@
             boughtDrinks = 0;
             discountA = 0;
             discountB = 0;
+            updateTotal();
         }
 
         function resetInputs() {
-            inputs.forEach(input => {
-                input.value = 0;
+            document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
+
+            form.querySelectorAll('input[type="number"]').forEach(input => {
+                input.value = '';
             });
             resetVariables();
+        }
+
+        function countDiscountSet(type) {
+            let discountTimes = 0;
+            const inputs = form.querySelectorAll(`#${type} input[type="number"]`);
+            inputs.forEach(input => {
+                const quantity = input.value || 0;
+                if (quantity > 0) {
+                    discountTimes += parseInt(quantity);
+                }
+            });
+            return discountTimes;
         }
 
         function updateTotal() {
-            let total = 0;
-            const inputs = form.querySelectorAll('input[type="number"]');
-            inputs.forEach(input => {
-                const price = input.dataset.price;
-                const quantity = input.value || 0;
-                total += price * quantity;
-            });
-            totalElement.textContent = `總金額：${total} 元`;
-        }
-
-        function displayReceipt() {
-            resetVariables();
+            total = 0;
+            boughtRuhyah = countDiscountSet('ry');
+            boughtEton = countDiscountSet('et');
+            boughtDrinks = countDiscountSet('dr');
+            discountA = Math.min(boughtRuhyah, boughtDrinks);
+            boughtDrinks -= discountA;
+            discountB = Math.min(boughtEton, boughtDrinks);
 
             const inputs = form.querySelectorAll('input[type="number"]');
             inputs.forEach(input => {
@@ -484,50 +297,58 @@
                 if (quantity > 0) {
                     const name = input.dataset.name;
                     const price = input.dataset.price;
-
-                    arrayName.push(name);
-                    arrayQuantity.push(parseInt(quantity));
-                    arrayPrice.push(parseInt(price));
-                    arrayPxQ.push(parseInt(price) * parseInt(quantity));
-
                     total += price * quantity;
-
-                    if (name.startsWith('時間暫停熱壓吐司'))
-                        boughtRuhyah += parseInt(quantity);
-                    else if (name.startsWith('撲克牌武士'))
-                        boughtEton += parseInt(quantity);
-                    else if (name.startsWith('飲料')) {
-                        boughtDrinks += parseInt(quantity);
-                    }
                 }
             });
 
-            discountA += Math.min(boughtRuhyah, boughtDrinks);
-            boughtDrinks -= discountA;
-            discountB += Math.min(boughtEton, boughtDrinks);
-
             if (discountA > 0) {
-                arrayName.push('A 套餐優惠');
-                arrayQuantity.push(discountA);
-                arrayPrice.push(-5);
-                arrayPxQ.push(discountA * -5);
-
                 total += discountA * -5;
             }
 
             if (discountB > 0) {
-                arrayName.push('B 套餐優惠');
+                total += discountB * -5;
+            }
+
+            totalElement.textContent = `總金額：${total} 元`;
+            submitButton.style.display = total > 0 ? 'block' : 'none';
+        }
+
+        function displayReceipt() {
+            resetVariables();
+            console.log(total);
+
+            const inputs = form.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                const quantity = parseInt(input.value) || 0;
+                if (quantity > 0) {
+                    const name = input.dataset.name;
+                    const price = parseInt(input.dataset.price);
+
+                    arrayName.push(name);
+                    arrayQuantity.push(quantity);
+                    arrayPrice.push(price);
+                    arrayPxQ.push(price * quantity);
+                }
+            });
+
+            if (discountA > 0) {
+                arrayName.push('Ａ套餐優惠');
+                arrayQuantity.push(discountA);
+                arrayPrice.push(-5);
+                arrayPxQ.push(discountA * -5);
+            }
+
+            if (discountB > 0) {
+                arrayName.push('Ｂ套餐優惠');
                 arrayQuantity.push(discountB);
                 arrayPrice.push(-5);
                 arrayPxQ.push(discountB * -5);
-
-                total += discountB * -5;
             }
 
             const date = new Date();
             const youbi = ['日', '一', '二', '三', '四', '五', '六'];
             document.getElementById('receipt-time').textContent = `中華民國 ${date.getFullYear() - 1911} 年 ${date.getMonth() + 1} 月 ${date.getDate()} 日　星期${youbi[date.getDay()]}　${date.getHours()} 時 ${date.getMinutes()} 分 ${date.getSeconds()} 秒`;
-            document.getElementById('casheer').textContent = '收銀員：' + document.getElementById('1726360308').value; 
+            document.getElementById('casheer').textContent = '收銀員：' + document.getElementById('1726360308').value;
 
             receiptItems.insertAdjacentHTML('afterbegin', createTable());
             receipt.style.display = 'block';
@@ -551,24 +372,24 @@
             });
 
             return `
-            <table>
-              <thead>
-                <tr>
-                  <td class="name">品名</td>
-                  <td class="name">數量</td>
-                  <td class="name">單價</td>
-                  <td class="name">總價</td>
-                </tr>
-              </thead>
-              <tbody>
-                ${tableRows.join('')}
-              <tr>
-                  <td style="text-align: center">合計新臺幣 ${total} 元整</td>
-                  <td colspan="3" style="text-align: center">銀貨兩訖</td>
-              </tr>
-              </tbody>
-            </table>
-          `;
+                <table>
+                  <thead>
+                    <tr>
+                      <td class="name">品名</td>
+                      <td>數量</td>
+                      <td>單價</td>
+                      <td>總價</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${tableRows.join('')}
+                  <tr>
+                      <td class="final">合計新臺幣 ${total} 元整</td>
+                      <td colspan="3" class="final">銀貨兩訖</td>
+                  </tr>
+                  </tbody>
+                </table>
+              `;
         }
 
         $('#bootstrapForm').submit(function (event) {
@@ -579,7 +400,6 @@
                 dataType: 'jsonp',
                 error: displayReceipt()
             })
-        })
-    </script>
+        })</script>
 </body>
 </html>
