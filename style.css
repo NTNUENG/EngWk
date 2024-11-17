@@ -35,6 +35,13 @@ body {
     }
 }
 
+sub {
+    vertical-align: baseline;
+    font-size: 70%;
+    padding-left: 0.25em;
+    opacity: 70%;
+}
+
 .blurred-bg {
     position: fixed;
     top: 0;
@@ -160,7 +167,7 @@ input {
 
 .menu {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(25dvw, 200px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(26dvw, 200px), 1fr));
     gap: var(--gap);
 }
 
@@ -206,6 +213,12 @@ ruby {
     display: none;
     height: calc(100dvh - var(--gap) * 2);
     overflow-y: auto;
+}
+
+.orderID {
+    font-size: 70%;
+    opacity: 70%;
+    color: var(--primary);
 }
 
 table {

@@ -26,8 +26,27 @@
             <!-- Field type: "short" id: "1028344047" -->
             <fieldset style="display: block">
                 <legend for="1028344047">收銀員</legend>
-                <input id="1726360308" style="width: auto" type="text" name="entry.1726360308" placeholder="收銀員華文姓名" class="form-control" required>
+                <input id="1726360308" style="width: min(calc(var(--gap) * 20), 80dvw);" type="text" name="entry.1726360308" placeholder="收銀員華文姓名" class="form-control" required>
             </fieldset>
+
+            <div id="input-group" style=" display: flex; justify-content: center;">
+                <!-- Field type: "short" id: "71287061" -->
+                <fieldset>
+                    <legend for="71287061">ID-num</legend>
+                    <div class="form-group">
+                        <input id="780771985" style="width: min(calc(var(--gap) * 10), 40dvw); border-top-right-radius: 0px; border-bottom-right-radius: 0px; " type="text" name="entry.780771985" placeholder="客戶電話末三碼" minlength="3" maxlength="3" class="form-control" required>
+                    </div>
+                </fieldset>
+
+
+                <!-- Field type: "short" id: "762479566" -->
+                <fieldset>
+                    <legend for="762479566">ID-surname</legend>
+                    <div class="form-group">
+                        <input id="553056708" style="width: min(calc(var(--gap) * 10), 40dvw); border-top-left-radius: 0px; border-bottom-left-radius: 0px; " type="text" name="entry.553056708" placeholder="客戶姓氏" class="form-control" required>
+                    </div>
+                </fieldset>
+            </div>
         </div>
 
         <div class="container" id="ry">
@@ -77,29 +96,29 @@
                 <!-- Field type: "short" id: "397234414" -->
                 <fieldset>
                     <legend for="397234414">ㄧㄉOreo</legend>
-                    <ruby>♤ Oreo<rt>35$</rt></ruby>
-                    <input id="2110937824" type="number" name="entry.2110937824" placeholder="0" class="form-control" data-name="撲克牌武士・Oreo" min="0" data-price="35">
-                </fieldset>
-
-                <!-- Field type: "short" id: "1436610486" -->
-                <fieldset>
-                    <legend for="1436610486">ㄧㄉ巧克力</legend>
-                    <ruby>◇ 巧克力醬＋棉花糖<rt>35$</rt></ruby>
-                    <input id="476499688" type="number" name="entry.476499688" placeholder="0" class="form-control" data-name="撲克牌武士・巧克力醬＋棉花糖" min="0" data-price="35">
-                </fieldset>
-
-                <!-- Field type: "short" id: "1608265025" -->
-                <fieldset>
-                    <legend for="1608265025">ㄧㄉ抹茶</legend>
-                    <ruby>♧ 抹茶紅豆<rt>40$</rt></ruby>
-                    <input id="1432997229" type="number" name="entry.1432997229" placeholder="0" class="form-control" data-name="撲克牌武士・抹茶紅豆" min="0" data-price="40">
+                    <ruby>黑桃<span class="hanLatin">♠️</span><sub>Oreo</sub><rt>35$</rt></ruby>
+                    <input id="2110937824" type="number" name="entry.2110937824" placeholder="0" class="form-control" data-name="撲克牌武士・黑桃武士" min="0" data-price="35">
                 </fieldset>
 
                 <!-- Field type: "short" id: "924501392" -->
                 <fieldset>
                     <legend for="924501392">ㄧㄉ草莓</legend>
-                    <ruby>♡ 草莓果醬＋果乾<rt>40$</rt></ruby>
-                    <input id="2078319371" type="number" name="entry.2078319371" placeholder="0" class="form-control" data-name="撲克牌武士・草莓果醬＋果乾" min="0" data-price="40">
+                    <ruby>紅心<span class="hanLatin">♥️</span><sub>草莓果醬＋果乾</sub><rt>40$</rt></ruby>
+                    <input id="2078319371" type="number" name="entry.2078319371" placeholder="0" class="form-control" data-name="撲克牌武士・紅心武士" min="0" data-price="40">
+                </fieldset>
+
+                <!-- Field type: "short" id: "1436610486" -->
+                <fieldset>
+                    <legend for="1436610486">ㄧㄉ巧克力</legend>
+                    <ruby>方塊<span class="hanLatin">♦️</span><sub>巧克力醬＋棉花糖</sub><rt>35$</rt></ruby>
+                    <input id="476499688" type="number" name="entry.476499688" placeholder="0" class="form-control" data-name="撲克牌武士・方塊武士" min="0" data-price="35">
+                </fieldset>
+
+                <!-- Field type: "short" id: "1608265025" -->
+                <fieldset>
+                    <legend for="1608265025">ㄧㄉ抹茶</legend>
+                    <ruby>梅花<span class="hanLatin">♣️</span><sub>抹茶紅豆</sub><rt>40$</rt></ruby>
+                    <input id="1432997229" type="number" name="entry.1432997229" placeholder="0" class="form-control" data-name="撲克牌武士・梅花武士" min="0" data-price="40">
                 </fieldset>
             </div>
         </div>
@@ -107,50 +126,50 @@
         <div class="container" id="dr">
             <!-- Field type: "section" id: "1720670259" -->
             <fieldset style="display: block;">
-                <h2 for="1720670259">飲料</h2>
+                <h2 for="1720670259">飲品</h2>
             </fieldset>
 
             <div class="menu">
                 <!-- Field type: "short" id: "146021213" -->
                 <fieldset>
                     <legend for="146021213">ㄧㄌ可可</legend>
-                    <ruby>可可<rt>30$</rt></ruby>
-                    <input id="576114498" type="number" name="entry.576114498" placeholder="0" class="form-control" data-name="飲料・可可" min="0" data-price="30">
-                </fieldset>
-
-                <!-- Field type: "short" id: "301739864" -->
-                <fieldset>
-                    <legend for="301739864">ㄧㄌ奶茶</legend>
-                    <ruby>奶茶<rt>30$</rt></ruby>
-                    <input id="362036548" type="number" name="entry.362036548" placeholder="0" class="form-control" data-name="飲料・奶茶" min="0" data-price="30">
-                </fieldset>
-
-                <!-- Field type: "short" id: "506716195" -->
-                <fieldset>
-                    <legend for="506716195">ㄧㄌ咖啡</legend>
-                    <ruby>咖啡<rt>30$</rt></ruby>
-                    <input id="3695229" type="number" name="entry.3695229" placeholder="0" class="form-control" data-name="飲料・咖啡" min="0" data-price="30">
-                </fieldset>
-
-                <!-- Field type: "short" id: "1721585757" -->
-                <fieldset>
-                    <legend for="1721585757">ㄧㄌ紅茶</legend>
-                    <ruby>紅茶<rt>30$</rt></ruby>
-                    <input id="263894104" type="number" name="entry.263894104" placeholder="0" class="form-control" data-name="飲料・紅茶" min="0" data-price="30">
+                    <ruby>瘋帽客可可<rt>30$</rt></ruby>
+                    <input id="576114498" type="number" name="entry.576114498" placeholder="0" class="form-control" data-name="飲品・瘋帽客可可" min="0" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "528786601" -->
                 <fieldset>
                     <legend for="528786601">ㄧㄌ棉花糖</legend>
-                    <ruby>棉花糖可可<rt>35$</rt></ruby>
-                    <input id="1436805870" type="number" name="entry.1436805870" placeholder="0" class="form-control" data-name="飲料・棉花糖可可" min="0" data-price="35">
+                    <ruby>瘋帽客可可<sub>＋棉花糖</sub><rt>35$</rt></ruby>
+                    <input id="1436805870" type="number" name="entry.1436805870" placeholder="0" class="form-control" data-name="飲品・瘋帽客可可＋" min="0" data-price="35">
+                </fieldset>
+
+                <!-- Field type: "short" id: "301739864" -->
+                <fieldset>
+                    <legend for="301739864">ㄧㄌ奶茶</legend>
+                    <ruby>白兔奶茶<rt>30$</rt></ruby>
+                    <input id="362036548" type="number" name="entry.362036548" placeholder="0" class="form-control" data-name="飲品・白兔奶茶" min="0" data-price="30">
+                </fieldset>
+
+                <!-- Field type: "short" id: "506716195" -->
+                <fieldset>
+                    <legend for="506716195">ㄧㄌ咖啡</legend>
+                    <ruby>苦澀寫字檯<rt>30$</rt></ruby>
+                    <input id="3695229" type="number" name="entry.3695229" placeholder="0" class="form-control" data-name="飲品・苦澀寫字檯" min="0" data-price="30">
+                </fieldset>
+
+                <!-- Field type: "short" id: "1721585757" -->
+                <fieldset>
+                    <legend for="1721585757">ㄧㄌ紅茶</legend>
+                    <ruby>紅心皇后皇家紅茶<rt>30$</rt></ruby>
+                    <input id="263894104" type="number" name="entry.263894104" placeholder="0" class="form-control" data-name="飲品・紅心皇后皇家紅茶" min="0" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "607958717" -->
                 <fieldset>
                     <legend for="607958717">ㄧㄌ蘑菇</legend>
-                    <ruby>蘑菇濃湯<rt>45$</rt></ruby>
-                    <input id="22730490" type="number" name="entry.22730490" placeholder="0" class="form-control" data-name="飲料・蘑菇濃湯" min="0" data-price="45">
+                    <ruby>艾瑟隆迷幻蘑菇濃湯<rt>45$</rt></ruby>
+                    <input id="22730490" type="number" name="entry.22730490" placeholder="0" class="form-control" data-name="飲品・艾瑟隆迷幻蘑菇濃湯" min="0" data-price="45">
                 </fieldset>
             </div>
         </div>
@@ -176,18 +195,18 @@
                     <input id="1866350321" type="number" name="entry.1866350321" placeholder="0" class="form-control" data-name="美宣品・明信片" min="0" data-price="25">
                 </fieldset>
 
-                <!-- Field type: "short" id: "1063157919" -->
-                <fieldset>
-                    <legend for="1063157919">ㄇㄒ檔案夾</legend>
-                    <ruby>檔案夾<rt>55$</rt></ruby>
-                    <input id="729785754" type="number" name="entry.729785754" placeholder="0" class="form-control" data-name="美宣品・檔案夾" min="0" data-price="55">
-                </fieldset>
-
                 <!-- Field type: "short" id: "407652816" -->
                 <fieldset>
                     <legend for="407652816">ㄇㄒ吊飾</legend>
                     <ruby>吊飾<rt>45$</rt></ruby>
                     <input id="1631742395" type="number" name="entry.1631742395" placeholder="0" class="form-control" data-name="美宣品・吊飾" min="0" data-price="45">
+                </fieldset>
+
+                <!-- Field type: "short" id: "1063157919" -->
+                <fieldset>
+                    <legend for="1063157919">ㄇㄒ檔案夾</legend>
+                    <ruby>檔案夾<rt>55$</rt></ruby>
+                    <input id="729785754" type="number" name="entry.729785754" placeholder="0" class="form-control" data-name="美宣品・檔案夾" min="0" data-price="55">
                 </fieldset>
             </div>
         </div>
@@ -210,8 +229,7 @@
 
         <div class="container receipt" id="receipt">
             <h2>收據</h2>
-            <div id="casheer">收銀員：是誰？</div>
-            <div id="receipt-time">中華民國 113 年 12 月 25 日 12 時 25 分 13 秒</div>
+            <div id="recipient" class="orderID"><span class="hanLatin"></span><span id="receipt-time"></span></div>
             <div id="receipt-table">
             </div>
             <div id="total-receipt"></div>
@@ -267,6 +285,8 @@
             form.querySelectorAll('input[type="number"]').forEach(input => {
                 input.value = '';
             });
+            document.getElementById('780771985').value = '';
+            document.getElementById('553056708').value = '';
             resetVariables();
         }
 
@@ -346,10 +366,11 @@
                 arrayPxQ.push(discountB * -5);
             }
 
+            document.getElementById('recipient').innerHTML = `＃<span class="hanLatin" style="padding-left: 0;">${document.getElementById('780771985').value}</span>${document.getElementById('553056708').value}｜<span id="receipt-time"></span>`
+
             const date = new Date();
             const youbi = ['日', '一', '二', '三', '四', '五', '六'];
-            document.getElementById('receipt-time').innerHTML = `中華民國<span class="hanLatin">${date.getFullYear() - 1911}</span>年<span class="hanLatin">${date.getMonth() + 1}</span>月<span class="hanLatin">${date.getDate()}</span>日<span style="padding-left: 1rem">週${youbi[date.getDay()]}</span><span style="padding: 0 0.25rem 0 1rem">${date.getHours()}</span>時<span class="hanLatin">${date.getMinutes()}</span>分<span class="hanLatin">${date.getSeconds()}</span>秒`;
-            document.getElementById('casheer').textContent = '收銀員：' + document.getElementById('1726360308').value;
+            document.getElementById('receipt-time').innerHTML = `中華民國<span class="hanLatin">${date.getFullYear() - 1911}</span>年<span class="hanLatin">${date.getMonth() + 1}</span>月<span class="hanLatin">${date.getDate()}</span>日<span class="hanLatin">${date.getHours()}</span>時<span class="hanLatin">${date.getMinutes()}</span>分<span class="hanLatin">${date.getSeconds()}</span>秒｜${document.getElementById('1726360308').value}`;
 
             receiptItems.insertAdjacentHTML('afterbegin', createTable());
             receipt.style.display = 'block';

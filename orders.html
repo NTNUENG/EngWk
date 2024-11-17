@@ -63,9 +63,6 @@
             }
 
         .orderID {
-            font-size: 70%;
-            opacity: 70%;
-            color: var(--primary);
             margin-bottom: 1em;
         }
 
@@ -138,18 +135,18 @@
         const itemid = {
             'ry-naisu': 'ㄖㄧ奶酥',
             'ry-hsiangsuan': 'ㄖㄧ香蒜',
-            'ry-choco': 'ㄖㄧ巧克力棉花糖',
+            'ry-chococotton': 'ㄖㄧ巧克力棉花糖',
             'ry-ham': 'ㄖㄧ火腿起司',
             'eton-oreo': 'ㄧㄉOreo',
-            'eton-choco': 'ㄧㄉ巧克力醬＋棉花糖',
+            'eton-chococotton': 'ㄧㄉ巧克力醬＋棉花糖',
             'eton-matcha': 'ㄧㄉ抹茶紅豆',
             'eton-ew': 'ㄧㄉ草莓果醬＋果乾',
-            'eton-coco': 'ㄧㄌ可可',
-            'eton-milktea': 'ㄧㄌ奶茶',
-            'eton-coffee': 'ㄧㄌ咖啡',
-            'eton-black': 'ㄧㄌ紅茶',
-            'eton-cottonchoco': 'ㄧㄌ棉花糖可可',
-            'eton-mushroom': 'ㄧㄌ蘑菇濃湯',
+            'drink-milktea': 'ㄧㄌ奶茶',
+            'drink-coffee': 'ㄧㄌ咖啡',
+            'drink-black': 'ㄧㄌ紅茶',
+            'drink-milo': 'ㄧㄌ美祿',
+            'drink-milopro': 'ㄧㄌ美祿＋棉花糖',
+            'drink-soup': 'ㄧㄌ濃湯',
             'art-sticker': 'ㄇㄒ貼紙',
             'art-postcard': 'ㄇㄒ明信片',
             'art-folder': 'ㄇㄒ檔案夾',
@@ -159,28 +156,28 @@
         const itemprice = {
             'ry-naisu': 25,
             'ry-hsiangsuan': 30,
-            'ry-choco': 30,
+            'ry-chococotton': 30,
             'ry-ham': 35,
             'eton-oreo': 35,
-            'eton-choco': 35,
+            'eton-chococotton': 35,
             'eton-matcha': 40,
             'eton-ew': 40,
-            'eton-coco': 30,
-            'eton-milktea': 30,
-            'eton-coffee': 30,
-            'eton-black': 30,
-            'eton-cottonchoco': 35,
-            'eton-mushroom': 45,
+            'drink-milktea': 30,
+            'drink-coffee': 30,
+            'drink-black': 30,
+            'drink-milo': 30,
+            'drink-milopro': 35,
+            'drink-soup': 45,
             'art-sticker': 15,
             'art-postcard': 25,
-            'art-folder': 55,
             'art-hang': 45,
+            'art-folder': 55,
         };
 
         const itemtype = {
-            'ㄖㄧ': '時間暫停熱壓吐司・',
-            'ㄧㄉ': '撲克牌武士・',
-            'ㄧㄌ': '飲料・',
+            'ㄖㄧ': '熱食・',
+            'ㄧㄉ': '甜食・',
+            'ㄧㄌ': '飲品・',
             'ㄇㄒ': '美宣品・',
         }
 
@@ -234,7 +231,7 @@
 
                 const orderID = document.createElement('p');
                 orderID.classList.add('orderID');
-                orderID.innerHTML = generateOrderID(order.timestamp, order.clerk);
+                orderID.innerHTML = generateOrderID(order.IDnum, order.IDsurname, order.時間戳記, order.clerk);
                 card.appendChild(orderID);
 
                 const itemList = document.createElement('table');
@@ -245,7 +242,7 @@
                 const tbody = document.createElement('tbody');
                 for (const [key, value] of Object.entries(order)) {
                     const quantity = parseInt(value);
-                    if (value > 0 && key !== 'timestamp' && key !== 'clerk') {
+                    if (value > 0 && !['timestamp', 'clerk', 'ID-num', 'ID-surname'].includes(key)) {
                         if (itemid[key] && itemprice[key]) {
                             const item = document.createElement('tr');
                             const name = fullName(itemid[key]);
@@ -260,11 +257,11 @@
                             item.innerHTML = arr.join('');
                             tbody.appendChild(item);
 
-                            if (name.startsWith('時間暫停熱壓吐司'))
+                            if (name.startsWith(itemtype['ㄖㄧ']))
                                 boughtRuhyah += quantity;
-                            else if (name.startsWith('撲克牌武士'))
+                            else if (name.startsWith(itemtype['ㄧㄉ']))
                                 boughtEton += quantity;
-                            else if (name.startsWith('飲料')) {
+                            else if (name.startsWith(itemtype['ㄧㄌ'])) {
                                 boughtDrinks += quantity;
                             }
                         } else {
@@ -313,13 +310,13 @@
         }
 
 
-        function generateOrderID(time, clerk) {
+        function generateOrderID(num, sur, time, clerk) {
             let formattedTime = time.replace(/[^0-9]/g, '').slice(6);
 
             if (formattedTime.length < 8)
                 formattedTime = formattedTime.slice(0, 2) + '0' + formattedTime.slice(2);
 
-            return '<span class="timestamp">#' + formattedTime + '</span>｜' + clerk;
+            return `＃<span class="hanLatin" style="padding-left: 0">${num}</span>${sur}｜<span class="timestamp">${formattedTime}</span>｜${clerk}`;
         }
 
         function fullName(raw) {
