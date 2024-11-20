@@ -11,6 +11,37 @@
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Bold.min.css" />
     <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="stylesheets/_accordion.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha256-2Pjr1OlpZMY6qesJM68t2v39t+lMLvxwpa8QlRjJroA=" crossorigin="anonymous"></script>
+    <script src="js/anchyuen.js"></script>
+    <style>
+        h2 {
+            display: flex;
+        }
+
+        .discountBadge {
+            cursor: pointer;
+            font-size: 50%;
+            background: #ba1a1a;
+            color: #fff;
+            margin-left: auto;
+            font-weight: normal;
+            border-radius: 10px;
+            padding: 0.25rem;
+            align-self: center;
+            line-height: 1em;
+        }
+
+        .jumpTo {
+            cursor: pointer;
+            background-color: #bdecde7b;
+            /*padding: 0 0.2rem;
+            margin: 0.2rem;
+            border-radius: 10px;*/
+            color: #3b665b;
+            text-decoration: underline dotted;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,7 +58,7 @@
             <!-- Field type: "short" id: "1028344047" -->
             <fieldset style="display: block">
                 <legend for="1028344047">收銀員</legend>
-                <input id="1726360308" style="width: min(calc(var(--gap) * 20), 80dvw);" type="text" name="entry.1726360308" placeholder="收銀員華文姓名" class="form-control" required>
+                <input id="1726360308" style="width: min(calc(var(--gap) * 20), 80dvw);" type="text" name="entry.1726360308" placeholder="收銀員華文姓名" class="form-control" required readonly>
             </fieldset>
 
             <div id="input-group" style=" display: flex; justify-content: center;">
@@ -53,7 +84,7 @@
         <div class="container" id="ry">
             <!-- Field type: "section" id: "854395890" -->
             <fieldset style="display: block;">
-                <h2 for="854395890">時間暫停熱壓吐司</h2>
+                <h2 for="854395890">時間暫停熱壓吐司<span class="discountBadge" onclick="jumpTo('discountInfo')">組合套餐</span></h2>
             </fieldset>
 
             <div class="menu">
@@ -90,7 +121,7 @@
         <div class="container" id="et">
             <!-- Field type: "section" id: "1082036472" -->
             <fieldset style="display: block;">
-                <h2 for="1082036472">撲克牌武士小蛋糕</h2>
+                <h2 for="1082036472">撲克牌武士小蛋糕<span class="discountBadge" onclick="jumpTo('discountInfo')">組合套餐</span></h2>
             </fieldset>
 
             <div class="menu">
@@ -127,7 +158,7 @@
         <div class="container" id="dr">
             <!-- Field type: "section" id: "1720670259" -->
             <fieldset style="display: block;">
-                <h2 for="1720670259">飲品</h2>
+                <h2 for="1720670259">飲品<span class="discountBadge" onclick="jumpTo('discountInfo')">組合套餐</span></h2>
             </fieldset>
 
             <div class="menu">
@@ -155,7 +186,7 @@
                 <!-- Field type: "short" id: "506716195" -->
                 <fieldset>
                     <legend for="506716195">ㄧㄌ咖啡</legend>
-                    <ruby>苦澀寫字檯<rt>30$</rt></ruby>
+                    <ruby>苦澀寫字檯咖啡<rt>30$</rt></ruby>
                     <input id="3695229" type="number" name="entry.3695229" placeholder="0" class="form-control" data-name="飲品・苦澀寫字檯咖啡" min="0" data-price="30">
                 </fieldset>
 
@@ -237,7 +268,7 @@
         -->
         <input type="hidden" name="pageHistory" value="0,1,2,3,4">
 
-        <div class="container fullscreen flex">
+        <div class="container fullscreen flex" id="discountInfo">
             <h2 for="525883564">優惠方案</h2>
             <div class="accordion">
                 <!-- Accordion Item 1 -->
@@ -245,7 +276,7 @@
                     <button class="accordion-button" type="button">套餐</button>
                     <div class="accordion-panel">
                         <div class="accordion-body">
-                            凡購買「時間暫停熱壓吐司」或「撲克牌武士小蛋糕」搭配「飲品」者，折<span class="hanLatin">5</span>元。
+                            凡購買「<span class="jumpTo" onclick="jumpTo('ry')">時間暫停熱壓吐司</span>」或「<span class="jumpTo" onclick="jumpTo('et')">撲克牌武士小蛋糕</span>」搭配「<span class="jumpTo" onclick="jumpTo('dr')">飲品</span>」者，折<span class="hanLatin">5</span>元。
                         </div>
                     </div>
                 </div>
@@ -264,22 +295,22 @@
                     <div class="accordion-panel">
                         <div class="accordion-body">
                             消費滿百即享有遊戲機會。
-                            <div style="display: flex; flex-direction: row; margin-top: 1em">
+                            <div style="display: flex; flex-direction: row; margin-top: 1em;">
                                 <div style="flex: 1 1 auto; padding: calc(var(--gap) * 0.5);">
                                     <p><strong>紅心皇后的槌球場</strong></p>
-                                    <p style="font-size: 80%;">每單以乙次為限，擲乒乓球入杯中即可獲得杯底所示獎勵。未投進者不予重試。</p>
+                                    <p style="font-size: 80%;">每單以乙次為限。成功擲桌球入杯中即可獲得杯底所示獎勵，且未投進者不予重試。</p>
                                 </div>
                                 <div style="flex: 1 1 auto; padding: calc(var(--gap) * 0.5);">
                                     <p><strong>紅心背叛者</strong></p>
-                                    <p style="font-size: 80%;">消費滿百起每<span class="hanLatin">10</span>元多乙次機會，自牌堆中抽牌並抽獲鬼牌者贈送公關品或折扣。</p>
+                                    <p style="font-size: 80%;">消費滿百起每<span class="hanLatin">10</span>元多乙次機會。自牌堆中抽牌並抽獲指定牌者贈送公關品或折扣，抽到機會用盡。</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="flex: 1 1 auto"></div>
-            <div class="centre">
+            <!--<div style="flex: 1 1 auto"></div>-->
+            <div class="centre" style="margin-top: auto">
                 <div id="total" style="font-size: 2em; font-weight: bold">總金額：0 元</div>
                 <input class="btn" type="button" value="重新" onclick="resetInputs()" style="background: #ffdad6;color: #410002;font-weight: bold;">
                 <input class="btn" type="submit" value="提交" id="submit-button" style="background: #ddea96;color: #191e00;font-weight: bold;" disabled>
@@ -294,12 +325,10 @@
             <div id="total-receipt"></div>
         </div>
     </form>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha256-2Pjr1OlpZMY6qesJM68t2v39t+lMLvxwpa8QlRjJroA=" crossorigin="anonymous"></script>
     <script src="js/_accordion.js"></script>
     <script>
         const form = document.getElementById('bootstrapForm');
+        const clerkInput = document.getElementById('1726360308');
         const totalElement = document.getElementById('total');
         const submitButton = document.getElementById('submit-button');
         const receipt = document.getElementById('receipt');
@@ -424,7 +453,7 @@
 
             const date = new Date();
             const youbi = ['日', '一', '二', '三', '四', '五', '六'];
-            document.getElementById('receipt-time').innerHTML = `中華民國<span class="hanLatin">${date.getFullYear() - 1911}</span>年<span class="hanLatin">${date.getMonth() + 1}</span>月<span class="hanLatin">${date.getDate()}</span>日<span class="hanLatin">${date.getHours()}</span>時<span class="hanLatin">${date.getMinutes()}</span>分<span class="hanLatin">${date.getSeconds()}</span>秒｜${document.getElementById('1726360308').value}`;
+            document.getElementById('receipt-time').innerHTML = `中華民國<span class="hanLatin">${date.getFullYear() - 1911}</span>年<span class="hanLatin">${date.getMonth() + 1}</span>月<span class="hanLatin">${date.getDate()}</span>日<span class="hanLatin">${date.getHours()}</span>時<span class="hanLatin">${date.getMinutes()}</span>分<span class="hanLatin">${date.getSeconds()}</span>秒｜${clerkInput.value}`;
 
             receiptItems.insertAdjacentHTML('afterbegin', createTable());
             receipt.style.display = 'block';
@@ -448,24 +477,24 @@
             });
 
             return `
-                <table>
-                  <thead>
-                    <tr>
-                      <td class="name">品名</td>
-                      <td>數量</td>
-                      <td>單價</td>
-                      <td>總價</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    ${tableRows.join('')}
-                  <tr class="final">
-                      <td>合計新臺幣<span class="priceTag">${total}</span>元整</td>
-                      <td colspan="3">銀貨兩訖</td>
-                  </tr>
-                  </tbody>
-                </table>
-              `;
+                    <table>
+                      <thead>
+                        <tr>
+                          <td class="name">品名</td>
+                          <td>數量</td>
+                          <td>單價</td>
+                          <td>總價</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${tableRows.join('')}
+                      <tr class="final">
+                          <td>合計新臺幣<span class="priceTag">${total}</span>元整</td>
+                          <td colspan="3">銀貨兩訖</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  `;
         }
 
         $('#bootstrapForm').submit(function (event) {
@@ -476,6 +505,11 @@
                 dataType: 'jsonp',
                 error: displayReceipt()
             })
-        })</script>
+        })
+
+        function jumpTo(divID) {
+            document.getElementById(divID).scrollIntoView();
+        }
+</script>
 </body>
 </html>
