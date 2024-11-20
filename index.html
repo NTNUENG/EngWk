@@ -6,12 +6,13 @@
     <title>前臺｜國立臺灣師範大學英語學系 2024 聖誕英語週點餐系統</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wdth@87.5&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wdth@87.5&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wdth,wght@75,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Normal.min.css" />
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Bold.min.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/_accordion.css">
 </head>
+
 <body>
     <div class="blurred-bg"></div>
 
@@ -34,7 +35,7 @@
                 <fieldset>
                     <legend for="71287061">ID-num</legend>
                     <div class="form-group">
-                        <input id="780771985" style="width: min(calc(var(--gap) * 10), 40dvw); border-top-right-radius: 0px; border-bottom-right-radius: 0px; " type="text" name="entry.780771985" placeholder="客戶電話末三碼" minlength="3" maxlength="3" class="form-control" required>
+                        <input id="780771985" style="width: min(calc(var(--gap) * 10), 40dvw); border-top-right-radius: 0px; border-bottom-right-radius: 0px; clip-path: inset(-10px 0px -10px -10px);" type="tel" name="entry.780771985" placeholder="客戶末三碼" pattern="[0-9]{3}" class="form-control" required>
                     </div>
                 </fieldset>
 
@@ -43,7 +44,7 @@
                 <fieldset>
                     <legend for="762479566">ID-surname</legend>
                     <div class="form-group">
-                        <input id="553056708" style="width: min(calc(var(--gap) * 10), 40dvw); border-top-left-radius: 0px; border-bottom-left-radius: 0px; " type="text" name="entry.553056708" placeholder="客戶姓氏" class="form-control" required>
+                        <input id="553056708" style="width: min(calc(var(--gap) * 10), 40dvw); border-top-left-radius: 0px; border-bottom-left-radius: 0px; clip-path: inset(-10px -10px -10px 0px);" type="text" name="entry.553056708" placeholder="客戶姓氏" class="form-control" required>
                     </div>
                 </fieldset>
             </div>
@@ -89,7 +90,7 @@
         <div class="container" id="et">
             <!-- Field type: "section" id: "1082036472" -->
             <fieldset style="display: block;">
-                <h2 for="1082036472">撲克牌武士</h2>
+                <h2 for="1082036472">撲克牌武士小蛋糕</h2>
             </fieldset>
 
             <div class="menu">
@@ -97,28 +98,28 @@
                 <fieldset>
                     <legend for="397234414">ㄧㄉOreo</legend>
                     <ruby>黑桃<span class="hanLatin">♠️</span><sub>Oreo</sub><rt>35$</rt></ruby>
-                    <input id="2110937824" type="number" name="entry.2110937824" placeholder="0" class="form-control" data-name="撲克牌武士・黑桃武士" min="0" data-price="35">
+                    <input id="2110937824" type="number" name="entry.2110937824" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・黑桃武士" min="0" data-price="35">
                 </fieldset>
 
                 <!-- Field type: "short" id: "924501392" -->
                 <fieldset>
                     <legend for="924501392">ㄧㄉ草莓</legend>
                     <ruby>紅心<span class="hanLatin">♥️</span><sub>草莓果醬＋果乾</sub><rt>40$</rt></ruby>
-                    <input id="2078319371" type="number" name="entry.2078319371" placeholder="0" class="form-control" data-name="撲克牌武士・紅心武士" min="0" data-price="40">
+                    <input id="2078319371" type="number" name="entry.2078319371" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・紅心武士" min="0" data-price="40">
                 </fieldset>
 
                 <!-- Field type: "short" id: "1436610486" -->
                 <fieldset>
                     <legend for="1436610486">ㄧㄉ巧克力</legend>
                     <ruby>方塊<span class="hanLatin">♦️</span><sub>巧克力醬＋棉花糖</sub><rt>35$</rt></ruby>
-                    <input id="476499688" type="number" name="entry.476499688" placeholder="0" class="form-control" data-name="撲克牌武士・方塊武士" min="0" data-price="35">
+                    <input id="476499688" type="number" name="entry.476499688" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・方塊武士" min="0" data-price="35">
                 </fieldset>
 
                 <!-- Field type: "short" id: "1608265025" -->
                 <fieldset>
                     <legend for="1608265025">ㄧㄉ抹茶</legend>
                     <ruby>梅花<span class="hanLatin">♣️</span><sub>抹茶紅豆</sub><rt>40$</rt></ruby>
-                    <input id="1432997229" type="number" name="entry.1432997229" placeholder="0" class="form-control" data-name="撲克牌武士・梅花武士" min="0" data-price="40">
+                    <input id="1432997229" type="number" name="entry.1432997229" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・梅花武士" min="0" data-price="40">
                 </fieldset>
             </div>
         </div>
@@ -155,7 +156,7 @@
                 <fieldset>
                     <legend for="506716195">ㄧㄌ咖啡</legend>
                     <ruby>苦澀寫字檯<rt>30$</rt></ruby>
-                    <input id="3695229" type="number" name="entry.3695229" placeholder="0" class="form-control" data-name="飲品・苦澀寫字檯" min="0" data-price="30">
+                    <input id="3695229" type="number" name="entry.3695229" placeholder="0" class="form-control" data-name="飲品・苦澀寫字檯咖啡" min="0" data-price="30">
                 </fieldset>
 
                 <!-- Field type: "short" id: "1721585757" -->
@@ -188,11 +189,18 @@
                     <input id="1485386383" type="number" name="entry.1485386383" placeholder="0" class="form-control" data-name="美宣品・貼紙" min="0" data-price="15">
                 </fieldset>
 
+                <!-- Field type: "short" id: "1392899267" -->
+                <fieldset>
+                    <legend for="1392899267">ㄇㄒ徽章</legend>
+                    <ruby>徽章<rt>40$</rt></ruby>
+                    <input id="1529285761" type="number" name="entry.1529285761" placeholder="0" class="form-control" data-name="美宣品・徽章" min="0" data-price="40">
+                </fieldset>
+
                 <!-- Field type: "short" id: "261692789" -->
                 <fieldset>
                     <legend for="261692789">ㄇㄒ明信片</legend>
-                    <ruby>明信片<rt>25$</rt></ruby>
-                    <input id="1866350321" type="number" name="entry.1866350321" placeholder="0" class="form-control" data-name="美宣品・明信片" min="0" data-price="25">
+                    <ruby>明信片<rt>40$</rt></ruby>
+                    <input id="1866350321" type="number" name="entry.1866350321" placeholder="0" class="form-control" data-name="美宣品・明信片" min="0" data-price="40">
                 </fieldset>
 
                 <!-- Field type: "short" id: "407652816" -->
@@ -205,8 +213,16 @@
                 <!-- Field type: "short" id: "1063157919" -->
                 <fieldset>
                     <legend for="1063157919">ㄇㄒ檔案夾</legend>
-                    <ruby>檔案夾<rt>55$</rt></ruby>
-                    <input id="729785754" type="number" name="entry.729785754" placeholder="0" class="form-control" data-name="美宣品・檔案夾" min="0" data-price="55">
+                    <ruby>資料夾<rt>55$</rt></ruby>
+                    <input id="729785754" type="number" name="entry.729785754" placeholder="0" class="form-control" data-name="美宣品・資料夾" min="0" data-price="55">
+                </fieldset>
+
+
+                <!-- Field type: "short" id: "481329278" -->
+                <fieldset>
+                    <legend for="481329278">ㄇㄒ系服</legend>
+                    <ruby>系服<rt>340$</rt></ruby>
+                    <input id="262762365" type="number" name="entry.262762365" placeholder="0" class="form-control" data-name="美宣品・系服" min="0" data-price="340">
                 </fieldset>
             </div>
         </div>
@@ -222,9 +238,52 @@
         <input type="hidden" name="pageHistory" value="0,1,2,3,4">
 
         <div class="container fullscreen flex">
-            <div id="total" style="font-size: 2em; font-weight: bold">總金額：0 元</div>
-            <input class="btn" type="button" value="重新" onclick="resetInputs()" style="background: #ffdad6;color: #410002;font-weight: bold;">
-            <input class="btn" type="submit" value="提交" id="submit-button" style="background: #ddea96;color: #191e00;font-weight: bold;" disabled>
+            <h2 for="525883564">優惠方案</h2>
+            <div class="accordion">
+                <!-- Accordion Item 1 -->
+                <div class="accordion-item">
+                    <button class="accordion-button" type="button">套餐</button>
+                    <div class="accordion-panel">
+                        <div class="accordion-body">
+                            凡購買「時間暫停熱壓吐司」或「撲克牌武士小蛋糕」搭配「飲品」者，折<span class="hanLatin">5</span>元。
+                        </div>
+                    </div>
+                </div>
+                <!-- Accordion Item 2 -->
+                <div class="accordion-item">
+                    <button class="accordion-button" type="button">打卡</button>
+                    <div class="accordion-panel">
+                        <div class="accordion-body">
+                            消費並打卡「@英語週帳號 #喝我 #吃我 #英語週slogan」即享有「轉盤」機會乙次。
+                        </div>
+                    </div>
+                </div>
+                <!-- Accordion Item 3 -->
+                <div class="accordion-item">
+                    <button class="accordion-button" type="button">遊戲</button>
+                    <div class="accordion-panel">
+                        <div class="accordion-body">
+                            消費滿百即享有遊戲機會。
+                            <div style="display: flex; flex-direction: row; margin-top: 1em">
+                                <div style="flex: 1 1 auto; padding: calc(var(--gap) * 0.5);">
+                                    <p><strong style="font-weight: 500">紅心皇后的槌球場</strong></p>
+                                    <p style="font-size: 80%;">每單以乙次為限，擲乒乓球入杯中即可獲得杯底所示獎勵。未投進者不予重試。</p>
+                                </div>
+                                <div style="flex: 1 1 auto; padding: calc(var(--gap) * 0.5);">
+                                    <p><strong>紅心背叛者</strong></p>
+                                    <p style="font-size: 80%;">消費滿百起每<span class="hanLatin">10</span>元多乙次機會，自牌堆中抽牌並抽獲鬼牌者贈送公關品或折扣。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1 1 auto"></div>
+            <div class="centre">
+                <div id="total" style="font-size: 2em; font-weight: bold">總金額：0 元</div>
+                <input class="btn" type="button" value="重新" onclick="resetInputs()" style="background: #ffdad6;color: #410002;font-weight: bold;">
+                <input class="btn" type="submit" value="提交" id="submit-button" style="background: #ddea96;color: #191e00;font-weight: bold;" disabled>
+            </div>
         </div>
 
         <div class="container receipt" id="receipt">
@@ -238,7 +297,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha256-2Pjr1OlpZMY6qesJM68t2v39t+lMLvxwpa8QlRjJroA=" crossorigin="anonymous"></script>
-
+    <script src="js/_accordion.js"></script>
     <script>
         const form = document.getElementById('bootstrapForm');
         const totalElement = document.getElementById('total');
@@ -352,18 +411,13 @@
                 }
             });
 
-            if (discountA > 0) {
-                arrayName.push('Ａ套餐優惠');
-                arrayQuantity.push(discountA);
-                arrayPrice.push(-5);
-                arrayPxQ.push(discountA * -5);
-            }
+            let discountAB = discountA + discountB;
 
-            if (discountB > 0) {
-                arrayName.push('Ｂ套餐優惠');
-                arrayQuantity.push(discountB);
+            if (discountAB > 0) {
+                arrayName.push('優惠方案・套餐');
+                arrayQuantity.push(discountAB);
                 arrayPrice.push(-5);
-                arrayPxQ.push(discountB * -5);
+                arrayPxQ.push(discountAB * -5);
             }
 
             document.getElementById('recipient').innerHTML = `＃<span class="hanLatin" style="padding-left: 0;">${document.getElementById('780771985').value}</span>${document.getElementById('553056708').value}｜<span id="receipt-time"></span>`

@@ -1,0 +1,66 @@
+.accordion {
+    --border-style: 1px solid var(--border);
+    border-radius: calc(var(--gap) * 0.25);
+    border: var(--border-style);
+    overflow: hidden;
+    background-color: #fbfaed;
+}
+
+.accordion-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: calc(var(--gap) * 0.5);
+    width: 100%;
+    background-color: inherit;
+    border-top: var(--border-style);
+    text-align: left;
+    outline: none;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+    .accordion-button:not(.active):hover {
+        background-color: #dcdace;
+        color: #1a1d07;
+    }
+
+    .accordion-button.active {
+        border-bottom: var(--border-style);
+        background-color: #e2e5c2;
+    }
+
+    .accordion-button::after {
+        font-family: Arial, Helvetica, sans-serif;
+        content: '\002B';
+        font-size: 20px;
+        font-weight: bold;
+        margin-left: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .accordion-button.active::after {
+        content: '\2212';
+    }
+
+.accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-body {
+    padding: calc(var(--gap) * 0.5);
+}
+
+.accordion-item:first-child .accordion-button {
+    border-top: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.accordion-item:last-child .accordion-panel {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

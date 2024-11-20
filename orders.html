@@ -6,11 +6,10 @@
     <title>後臺｜國立臺灣師範大學英語學系 2024 聖誕英語週點餐系統</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wdth@87.5&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wdth@87.5&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wdth,wght@75,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Normal.min.css" />
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Bold.min.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
     <style>
         .scrollBody {
             scroll-padding: 0;
@@ -26,6 +25,8 @@
             display: flex;
             width: 100dvw;
             height: calc(100dvh - var(--gap) * 2);
+            flex-direction: column;
+            flex-wrap: wrap;
             scroll-snap-align: start;
             gap: calc(var(--gap) * 0.5);
             padding: calc(var(--gap) * 0.5);
@@ -96,21 +97,14 @@
         @media only screen and (max-width: 600px) {
             .orderContainer {
                 flex-direction: column;
+                flex-wrap: nowrap;
                 overflow-x: auto;
                 scroll-snap-type: y mandatory;
                 scroll-padding: 0;
             }
 
             .orderCard {
-                width: auto;
                 height: auto;
-                padding: calc(var(--gap) * 0.75);
-                background: var(--details-bg);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                border-radius: 8px;
-                box-shadow: 0 4px 8px var(--shadow);
-                white-space: nowrap;
                 overflow-y: unset;
             }
         }
@@ -132,46 +126,27 @@
         </div>
     </div>
     <script>
-        const itemid = {
-            'ry-naisu': 'ㄖㄧ奶酥',
-            'ry-hsiangsuan': 'ㄖㄧ香蒜',
-            'ry-chococotton': 'ㄖㄧ巧克力棉花糖',
-            'ry-ham': 'ㄖㄧ火腿起司',
-            'eton-oreo': 'ㄧㄉOreo',
-            'eton-chococotton': 'ㄧㄉ巧克力醬＋棉花糖',
-            'eton-matcha': 'ㄧㄉ抹茶紅豆',
-            'eton-ew': 'ㄧㄉ草莓果醬＋果乾',
-            'drink-milktea': 'ㄧㄌ奶茶',
-            'drink-coffee': 'ㄧㄌ咖啡',
-            'drink-black': 'ㄧㄌ紅茶',
-            'drink-milo': 'ㄧㄌ美祿',
-            'drink-milopro': 'ㄧㄌ美祿＋棉花糖',
-            'drink-soup': 'ㄧㄌ濃湯',
-            'art-sticker': 'ㄇㄒ貼紙',
-            'art-postcard': 'ㄇㄒ明信片',
-            'art-folder': 'ㄇㄒ檔案夾',
-            'art-hang': 'ㄇㄒ吊飾',
-        };
-
-        const itemprice = {
-            'ry-naisu': 25,
-            'ry-hsiangsuan': 30,
-            'ry-chococotton': 30,
-            'ry-ham': 35,
-            'eton-oreo': 35,
-            'eton-chococotton': 35,
-            'eton-matcha': 40,
-            'eton-ew': 40,
-            'drink-milktea': 30,
-            'drink-coffee': 30,
-            'drink-black': 30,
-            'drink-milo': 30,
-            'drink-milopro': 35,
-            'drink-soup': 45,
-            'art-sticker': 15,
-            'art-postcard': 25,
-            'art-hang': 45,
-            'art-folder': 55,
+        const items = {
+            'ry-naisu': { name: 'ㄖㄧ奶酥', price: 25, },
+            'ry-hsiangsuan': { name: 'ㄖㄧ香蒜', price: 30, },
+            'ry-chococotton': { name: 'ㄖㄧ巧克力棉花糖', price: 30, },
+            'ry-ham': { name: 'ㄖㄧ火腿起司', price: 35, },
+            'eton-oreo': { name: 'ㄧㄉOreo', price: 35, },
+            'eton-chococotton': { name: 'ㄧㄉ巧克力醬＋棉花糖', price: 35, },
+            'eton-matcha': { name: 'ㄧㄉ抹茶紅豆', price: 40, },
+            'eton-ew': { name: 'ㄧㄉ草莓果醬＋果乾', price: 40, },
+            'drink-milktea': { name: 'ㄧㄌ奶茶', price: 30, },
+            'drink-coffee': { name: 'ㄧㄌ咖啡', price: 30, },
+            'drink-black': { name: 'ㄧㄌ紅茶', price: 30, },
+            'drink-milo': { name: 'ㄧㄌ美祿', price: 30, },
+            'drink-milopro': { name: 'ㄧㄌ美祿＋棉花糖', price: 35, },
+            'drink-soup': { name: 'ㄧㄌ濃湯', price: 45, },
+            'art-sticker': { name: 'ㄇㄒ貼紙', price: 15, },
+            'art-badge': { name: 'ㄇㄒ徽章', price: 40, },
+            'art-postcard': { name: 'ㄇㄒ明信片', price: 40, },
+            'art-hang': { name: 'ㄇㄒ吊飾', price: 45, },
+            'art-folder': { name: 'ㄇㄒ資料夾', price: 55, },
+            'art-clothes': { name: 'ㄇㄒ系服', price: 340, },
         };
 
         const itemtype = {
@@ -243,13 +218,14 @@
                 for (const [key, value] of Object.entries(order)) {
                     const quantity = parseInt(value);
                     if (value > 0 && !['timestamp', 'clerk', 'ID-num', 'ID-surname'].includes(key)) {
-                        if (itemid[key] && itemprice[key]) {
+                        if (items[key]) {
                             const item = document.createElement('tr');
-                            const name = fullName(itemid[key]);
-                            const PxQ = itemprice[key] * quantity;
+                            const name = fullName(items[key].name);
+                            const price = items[key].price;
+                            const PxQ = price * quantity;
                             total += PxQ;
 
-                            const arr = [name, quantity, itemprice[key], PxQ].map(e => {
+                            const arr = [name, quantity, price, PxQ].map(e => {
                                 const nameStyle = isNaN(e) ? ' class="name"' : '';
                                 return `<td${nameStyle}>${e}</td>`;
                             });
@@ -274,28 +250,18 @@
                 boughtDrinks -= discountA;
                 discountB += Math.min(boughtEton, boughtDrinks);
 
-                if (discountA > 0) {
+                let discountAB = discountA + discountB;
+
+                if (discountAB > 0) {
                     const item = document.createElement('tr');
-                    const arr = ['Ａ套餐優惠', discountA, -5, discountA * -5].map(e => {
+                    const arr = ['折價・套餐優惠', discountAB, -5, discountAB * -5].map(e => {
                         const nameStyle = isNaN(e) ? ' class="name"' : '';
                         return `<td${nameStyle}>${e}</td>`;
                     });
                     item.innerHTML = arr.join('');
                     tbody.appendChild(item);
 
-                    total += discountA * -5;
-                }
-
-                if (discountB > 0) {
-                    const item = document.createElement('tr');
-                    const arr = ['Ｂ套餐優惠', discountB, -5, discountB * -5].map(e => {
-                        const nameStyle = isNaN(e) ? ' class="name"' : '';
-                        return `<td${nameStyle}>${e}</td>`;
-                    });
-                    item.innerHTML = arr.join('');
-                    tbody.appendChild(item);
-
-                    total += discountB * -5;
+                    total += discountAB * -5;
                 }
 
                 const totalRow = document.createElement('tr');
