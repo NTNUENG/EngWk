@@ -38,7 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         form.style.display = 'none';
-        error = errorCode === 1 ? '連線逾時' : '安全模式已開啟';
+
+        if (errorCode === 1) {
+            error = '資料驗證錯誤';
+        }
+        else if (errorCode === 2) {
+            error = '連線逾時';
+        }
+        else {
+            error = '安全模式已開啟';
+        }
+      
         const errorHeader = document.createElement('h1');
         errorHeader.innerHTML = `${error}，請重新掃描英語週工人<span class="hanLatin" style="padding-right: 0">QR Code</span>。`;
         errorHeader.style.alignSelf = 'center';
@@ -59,12 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const clerkName = decodeClerkName(encodedClerkName);
     if (!clerkName || !validClerks.includes(clerkName)) {
-        disablePage();
+        disablePage(1);
         return;
     }
 
     clerkInput.value = clerkName;
     clearURLParameters();
 
-    setTimeout(() => { disablePage(1); }, TIME_LIMIT);
+    setTimeout(() => { disablePage(2); }, TIME_LIMIT);
 });

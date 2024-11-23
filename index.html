@@ -11,36 +11,208 @@
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Bold.min.css" />
     <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="stylesheets/_accordion.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha256-2Pjr1OlpZMY6qesJM68t2v39t+lMLvxwpa8QlRjJroA=" crossorigin="anonymous"></script>
     <script src="js/anchyuen.js"></script>
     <style>
+        html {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
         h2 {
             display: flex;
         }
 
-        .discountBadge {
+        sub {
+            vertical-align: baseline;
+            font-size: 70%;
+            padding-left: 0.25em;
+            opacity: 70%;
+        }
+
+            sub.badge {
+                font-size: 70%;
+                margin-left: 0.25em;
+            }
+
+        input {
+            width: 100%;
+            border: 1px solid transparent;
+            background-color: var(--surface);
+            border-radius: calc(var(--gap) * 0.5);
+            font-size: 1rem;
+            line-height: 2rem;
+            color: inherit;
+            outline: none;
+            text-align: inherit;
+            transition: border 0.2s ease, box-shadow 0.2s ease, border-radius 0.2s ease, background-color 0.2s ease;
+        }
+
+            input[type=number], input[type=tel] {
+                font-family: var(--monospace);
+            }
+
+            input[type=number] {
+                border: 1px solid var(--border);
+                -moz-appearance: textfield;
+                appearance: textfield;
+            }
+
+            input:not([type=btn]):focus {
+                border-radius: calc(var(--gap) * 0.2);
+                box-shadow: 0 0 calc(var(--gap) * 0.5) var(--border);
+            }
+
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+            }
+
+            input:hover {
+                box-shadow: 0 0 calc(var(--gap) * 0.5) var(--border);
+            }
+
+            input:invalid {
+                border: 1px solid transparent;
+                border-radius: 0;
+                box-shadow: 0 0 calc(var(--gap) * 0.5) var(--error);
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-position: right calc(.375em + .1875rem) center;
+                background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+            }
+
+        .container .quantity {
+            display: flex;
+            flex-direction: row;
+        }
+
+            .container .quantity .material-symbols-rounded {
+                cursor: pointer;
+                background-color: var(--surface);
+                min-width: 2rem;
+                line-height: 2rem;
+                font-size: 1em;
+                border: 1px solid var(--border);
+                transition: background-color 0.2s ease;
+            }
+
+                .container .quantity .material-symbols-rounded:hover {
+                    background-color: #dcdace;
+                }
+
+            .container .quantity .less {
+                border-radius: calc(var(--gap) * 0.5) 0 0 calc(var(--gap) * 0.5);
+                border-right: none;
+            }
+
+            .container .quantity .more {
+                border-radius: 0 calc(var(--gap) * 0.5) calc(var(--gap) * 0.5) 0;
+                border-left: none;
+            }
+
+            .container .quantity input {
+                border-radius: 0;
+                background-color: transparent;
+                margin-top: auto;
+                z-index: 2;
+            }
+
+                .container .quantity input[type=number]:focus {
+                    background-color: var(--surface);
+                }
+
+        fieldset {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+            fieldset h2 {
+                text-align: left;
+            }
+
+        legend {
+            display: none;
+        }
+
+        .label {
+            margin-bottom: calc(var(--gap) * 0.5);
+        }
+
+            .label .price {
+                font-family: var(--monospace);
+                font-size: 70%;
+                opacity: 70%;
+                color: var(--primary);
+            }
+
+        .badge {
             cursor: pointer;
             font-size: 50%;
-            background: #ba1a1a;
-            color: #fff;
             margin-left: auto;
             font-weight: normal;
             border-radius: 10px;
             padding: 0.25rem;
             align-self: center;
-            line-height: 1em;
+            line-height: 1rem;
+            transition: box-shadow 0.2s ease;
         }
 
         .jumpTo {
             cursor: pointer;
-            background-color: #bdecde7b;
-            /*padding: 0 0.2rem;
+            padding: 0 0.2rem;
             margin: 0.2rem;
-            border-radius: 10px;*/
-            color: #3b665b;
+            border-radius: 10px;
             text-decoration: underline dotted;
+            transition: box-shadow 0.2s ease;
         }
+
+            .badge.discount, .jumpTo.discount {
+                background-color: #bdecde7b;
+                color: #3b665b;
+            }
+
+            .badge.art, .jumpTo.art {
+                background-color: #ecbde07a;
+                color: #663b65;
+            }
+
+            .badge:hover, .jumpTo:hover {
+                box-shadow: 0 0 calc(var(--gap) * 0.5) var(--border);
+            }
+
+        .cardHolder {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1em;
+        }
+
+            .cardHolder .card {
+                flex: 1 1 auto;
+                padding: calc(var(--gap) * 0.5);
+                min-width: 10em;
+            }
+
+                .cardHolder .card p:first-child {
+                    font-weight: bold;
+                }
+
+                .cardHolder .card p:last-child {
+                    font-size: 80%;
+                }
+
+        .used {
+            border: 1px dotted var(--border);
+            margin-top: 0.5em;
+        }
+
+            .used .material-symbols-rounded {
+                vertical-align: middle;
+            }
     </style>
 </head>
 
@@ -84,36 +256,52 @@
         <div class="container" id="ry">
             <!-- Field type: "section" id: "854395890" -->
             <fieldset style="display: block;">
-                <h2 for="854395890">時間暫停熱壓吐司<span class="discountBadge" onclick="jumpTo('discountInfo')">組合套餐</span></h2>
+                <h2 for="854395890">時間暫停熱壓吐司<span class="badge discount" onclick="jumpTo('discountInfo', 'taotsan-acc')">組合套餐</span></h2>
             </fieldset>
 
             <div class="menu">
                 <!-- Field type: "short" id: "788998900" -->
                 <fieldset>
                     <legend for="788998900">ㄖㄧ奶酥</legend>
-                    <ruby>奶酥<rt>25$</rt></ruby>
-                    <input id="1293379201" type="number" name="entry.1293379201" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・奶酥" min="0" data-price="25">
+                    <div class="label">奶酥<div class="price">25$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="1293379201" type="number" name="entry.1293379201" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・奶酥" min="0" data-price="25">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "282590697" -->
                 <fieldset>
                     <legend for="282590697">ㄖㄧ香蒜</legend>
-                    <ruby>香蒜<rt>30$</rt></ruby>
-                    <input id="1152234688" type="number" name="entry.1152234688" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・香蒜" min="0" data-price="30">
+                    <div class="label">香蒜<div class="price">30$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="1152234688" type="number" name="entry.1152234688" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・香蒜" min="0" data-price="30">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "224487495" -->
                 <fieldset>
                     <legend for="224487495">ㄖㄧ巧克力</legend>
-                    <ruby>巧克力棉花糖<rt>30$</rt></ruby>
-                    <input id="312838004" type="number" name="entry.312838004" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・巧克力棉花糖" min="0" data-price="30">
+                    <div class="label">巧克力棉花糖<div class="price">30$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="312838004" type="number" name="entry.312838004" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・巧克力棉花糖" min="0" data-price="30">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "1704765215" -->
                 <fieldset>
                     <legend for="1704765215">ㄖㄧ火腿</legend>
-                    <ruby>火腿起司<rt>35$</rt></ruby>
-                    <input id="219553379" type="number" name="entry.219553379" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・火腿起司" min="0" data-price="35">
+                    <div class="label">火腿起司<div class="price">35$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="219553379" type="number" name="entry.219553379" placeholder="0" class="form-control" data-name="時間暫停熱壓吐司・火腿起司" min="0" data-price="35">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
             </div>
         </div>
@@ -121,36 +309,52 @@
         <div class="container" id="et">
             <!-- Field type: "section" id: "1082036472" -->
             <fieldset style="display: block;">
-                <h2 for="1082036472">撲克牌武士小蛋糕<span class="discountBadge" onclick="jumpTo('discountInfo')">組合套餐</span></h2>
+                <h2 for="1082036472">撲克牌武士小蛋糕<span class="badge discount" onclick="jumpTo('discountInfo', 'taotsan-acc')">組合套餐</span></h2>
             </fieldset>
 
             <div class="menu">
                 <!-- Field type: "short" id: "397234414" -->
                 <fieldset>
                     <legend for="397234414">ㄧㄉOreo</legend>
-                    <ruby>黑桃<span class="hanLatin">♠️</span><sub>Oreo</sub><rt>35$</rt></ruby>
-                    <input id="2110937824" type="number" name="entry.2110937824" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・黑桃武士" min="0" data-price="35">
+                    <div class="label">黑桃<span class="hanLatin">♠️</span><sub>Oreo</sub><div class="price">35$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="2110937824" type="number" name="entry.2110937824" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・黑桃武士" min="0" data-price="35">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "924501392" -->
                 <fieldset>
                     <legend for="924501392">ㄧㄉ草莓</legend>
-                    <ruby>紅心<span class="hanLatin">♥️</span><sub>草莓果醬＋果乾</sub><rt>40$</rt></ruby>
-                    <input id="2078319371" type="number" name="entry.2078319371" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・紅心武士" min="0" data-price="40">
+                    <div class="label">紅心<span class="hanLatin">♥️</span><sub>草莓果醬＋果乾</sub><div class="price">40$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="2078319371" type="number" name="entry.2078319371" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・紅心武士" min="0" data-price="40">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "1436610486" -->
                 <fieldset>
                     <legend for="1436610486">ㄧㄉ巧克力</legend>
-                    <ruby>方塊<span class="hanLatin">♦️</span><sub>巧克力醬＋棉花糖</sub><rt>35$</rt></ruby>
-                    <input id="476499688" type="number" name="entry.476499688" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・方塊武士" min="0" data-price="35">
+                    <div class="label">方塊<span class="hanLatin">♦️</span><sub>巧克力醬＋棉花糖</sub><div class="price">35$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="476499688" type="number" name="entry.476499688" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・方塊武士" min="0" data-price="35">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "1608265025" -->
                 <fieldset>
                     <legend for="1608265025">ㄧㄉ抹茶</legend>
-                    <ruby>梅花<span class="hanLatin">♣️</span><sub>抹茶紅豆</sub><rt>40$</rt></ruby>
-                    <input id="1432997229" type="number" name="entry.1432997229" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・梅花武士" min="0" data-price="40">
+                    <div class="label">梅花<span class="hanLatin">♣️</span><sub>抹茶紅豆</sub><div class="price">40$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="1432997229" type="number" name="entry.1432997229" placeholder="0" class="form-control" data-name="撲克牌武士小蛋糕・梅花武士" min="0" data-price="40">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
             </div>
         </div>
@@ -158,102 +362,150 @@
         <div class="container" id="dr">
             <!-- Field type: "section" id: "1720670259" -->
             <fieldset style="display: block;">
-                <h2 for="1720670259">飲品<span class="discountBadge" onclick="jumpTo('discountInfo')">組合套餐</span></h2>
+                <h2 for="1720670259">暖心飲品<span class="badge discount" onclick="jumpTo('discountInfo', 'taotsan-acc')">組合套餐</span></h2>
             </fieldset>
 
             <div class="menu">
                 <!-- Field type: "short" id: "146021213" -->
                 <fieldset>
                     <legend for="146021213">ㄧㄌ可可</legend>
-                    <ruby>瘋帽客可可<rt>30$</rt></ruby>
-                    <input id="576114498" type="number" name="entry.576114498" placeholder="0" class="form-control" data-name="飲品・瘋帽客可可" min="0" data-price="30">
+                    <div class="label">瘋帽客可可<div class="price">30$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="576114498" type="number" name="entry.576114498" placeholder="0" class="form-control" data-name="暖心飲品・瘋帽客可可" min="0" data-price="30">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "528786601" -->
                 <fieldset>
                     <legend for="528786601">ㄧㄌ棉花糖</legend>
-                    <ruby>瘋帽客可可<sub>＋棉花糖</sub><rt>35$</rt></ruby>
-                    <input id="1436805870" type="number" name="entry.1436805870" placeholder="0" class="form-control" data-name="飲品・瘋帽客可可＋" min="0" data-price="35">
+                    <div class="label">瘋帽客可可<sub>＋棉花糖</sub><div class="price">35$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="1436805870" type="number" name="entry.1436805870" placeholder="0" class="form-control" data-name="暖心飲品・瘋帽客可可＋" min="0" data-price="35">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "301739864" -->
                 <fieldset>
                     <legend for="301739864">ㄧㄌ奶茶</legend>
-                    <ruby>白兔奶茶<rt>30$</rt></ruby>
-                    <input id="362036548" type="number" name="entry.362036548" placeholder="0" class="form-control" data-name="飲品・白兔奶茶" min="0" data-price="30">
+                    <div class="label">白兔奶茶<div class="price">30$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="362036548" type="number" name="entry.362036548" placeholder="0" class="form-control" data-name="暖心飲品・白兔奶茶" min="0" data-price="30">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "506716195" -->
                 <fieldset>
                     <legend for="506716195">ㄧㄌ咖啡</legend>
-                    <ruby>苦澀寫字檯咖啡<rt>30$</rt></ruby>
-                    <input id="3695229" type="number" name="entry.3695229" placeholder="0" class="form-control" data-name="飲品・苦澀寫字檯咖啡" min="0" data-price="30">
+                    <div class="label">苦澀寫字檯咖啡<div class="price">30$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="3695229" type="number" name="entry.3695229" placeholder="0" class="form-control" data-name="暖心飲品・苦澀寫字檯咖啡" min="0" data-price="30">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "1721585757" -->
                 <fieldset>
                     <legend for="1721585757">ㄧㄌ紅茶</legend>
-                    <ruby>紅心皇后皇家紅茶<rt>30$</rt></ruby>
-                    <input id="263894104" type="number" name="entry.263894104" placeholder="0" class="form-control" data-name="飲品・紅心皇后皇家紅茶" min="0" data-price="30">
+                    <div class="label">紅心皇后皇家紅茶<div class="price">30$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="263894104" type="number" name="entry.263894104" placeholder="0" class="form-control" data-name="暖心飲品・紅心皇后皇家紅茶" min="0" data-price="30">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "607958717" -->
                 <fieldset>
                     <legend for="607958717">ㄧㄌ蘑菇</legend>
-                    <ruby>艾瑟隆迷幻蘑菇濃湯<rt>45$</rt></ruby>
-                    <input id="22730490" type="number" name="entry.22730490" placeholder="0" class="form-control" data-name="飲品・艾瑟隆迷幻蘑菇濃湯" min="0" data-price="45">
+                    <div class="label">艾瑟隆迷幻蘑菇濃湯<div class="price">45$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="22730490" type="number" name="entry.22730490" placeholder="0" class="form-control" data-name="暖心飲品・艾瑟隆迷幻蘑菇濃湯" min="0" data-price="45">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
             </div>
         </div>
 
-        <div class="container">
+        <div class="container" id="ar">
             <!-- Field type: "section" id: "525883564" -->
             <fieldset style="display: block;">
-                <h2 for="525883564">美宣品</h2>
+                <h2 for="525883564">文創商品</h2>
             </fieldset>
 
             <div class="menu">
                 <!-- Field type: "short" id: "930259876" -->
                 <fieldset>
                     <legend for="930259876">ㄇㄒ貼紙</legend>
-                    <ruby>貼紙<rt>15$</rt></ruby>
-                    <input id="1485386383" type="number" name="entry.1485386383" placeholder="0" class="form-control" data-name="美宣品・貼紙" min="0" data-price="15">
-                </fieldset>
-
-                <!-- Field type: "short" id: "1392899267" -->
-                <fieldset>
-                    <legend for="1392899267">ㄇㄒ徽章</legend>
-                    <ruby>徽章<rt>40$</rt></ruby>
-                    <input id="1529285761" type="number" name="entry.1529285761" placeholder="0" class="form-control" data-name="美宣品・徽章" min="0" data-price="40">
+                    <div class="label">貼紙<sub class="badge art" onclick="jumpTo('discountInfo', 'art-acc')">越買越省</sub><div class="price">15$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="1485386383" type="number" name="entry.1485386383" placeholder="0" class="form-control" data-name="文創商品・貼紙" min="0" data-price="15">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "261692789" -->
                 <fieldset>
                     <legend for="261692789">ㄇㄒ明信片</legend>
-                    <ruby>明信片<rt>40$</rt></ruby>
-                    <input id="1866350321" type="number" name="entry.1866350321" placeholder="0" class="form-control" data-name="美宣品・明信片" min="0" data-price="40">
+                    <div class="label">明信片<sub class="badge art" onclick="jumpTo('discountInfo', 'art-acc')">越買越省</sub><div class="price">25$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="1866350321" type="number" name="entry.1866350321" placeholder="0" class="form-control" data-name="文創商品・明信片" min="0" data-price="25">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
+                </fieldset>
+
+                <!-- Field type: "short" id: "1392899267" -->
+                <fieldset>
+                    <legend for="1392899267">ㄇㄒ徽章</legend>
+                    <div class="label">徽章<div class="price">40$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="1529285761" type="number" name="entry.1529285761" placeholder="0" class="form-control" data-name="文創商品・徽章" min="0" data-price="40">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "407652816" -->
                 <fieldset>
                     <legend for="407652816">ㄇㄒ吊飾</legend>
-                    <ruby>吊飾<rt>45$</rt></ruby>
-                    <input id="1631742395" type="number" name="entry.1631742395" placeholder="0" class="form-control" data-name="美宣品・吊飾" min="0" data-price="45">
+                    <div class="label">吊飾<div class="price">45$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="1631742395" type="number" name="entry.1631742395" placeholder="0" class="form-control" data-name="文創商品・吊飾" min="0" data-price="45">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
                 <!-- Field type: "short" id: "1063157919" -->
                 <fieldset>
                     <legend for="1063157919">ㄇㄒ檔案夾</legend>
-                    <ruby>資料夾<rt>55$</rt></ruby>
-                    <input id="729785754" type="number" name="entry.729785754" placeholder="0" class="form-control" data-name="美宣品・資料夾" min="0" data-price="55">
+                    <div class="label">資料夾<div class="price">55$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="729785754" type="number" name="entry.729785754" placeholder="0" class="form-control" data-name="文創商品・資料夾" min="0" data-price="55">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
 
 
                 <!-- Field type: "short" id: "481329278" -->
                 <fieldset>
                     <legend for="481329278">ㄇㄒ系服</legend>
-                    <ruby>系服<rt>340$</rt></ruby>
-                    <input id="262762365" type="number" name="entry.262762365" placeholder="0" class="form-control" data-name="美宣品・系服" min="0" data-price="340">
+                    <div class="label">系服<div class="price">340$</div></div>
+                    <div class="quantity">
+                        <span class="less material-symbols-rounded">remove</span>
+                        <input id="262762365" type="number" name="entry.262762365" placeholder="0" class="form-control" data-name="文創商品・系服" min="0" data-price="340">
+                        <span class="more material-symbols-rounded">add</span>
+                    </div>
                 </fieldset>
             </div>
         </div>
@@ -271,38 +523,62 @@
         <div class="container fullscreen flex" id="discountInfo">
             <h2 for="525883564">優惠方案</h2>
             <div class="accordion">
-                <!-- Accordion Item 1 -->
                 <div class="accordion-item">
-                    <button class="accordion-button" type="button">套餐</button>
+                    <button class="accordion-button" type="button" id="taotsan-acc">組合套餐</button>
                     <div class="accordion-panel">
                         <div class="accordion-body">
-                            凡購買「<span class="jumpTo" onclick="jumpTo('ry')">時間暫停熱壓吐司</span>」或「<span class="jumpTo" onclick="jumpTo('et')">撲克牌武士小蛋糕</span>」搭配「<span class="jumpTo" onclick="jumpTo('dr')">飲品</span>」者，折<span class="hanLatin">5</span>元。
+                            凡購買「<span class="jumpTo discount" onclick="jumpTo('ry')">時間暫停熱壓吐司</span>」或「<span class="jumpTo discount" onclick="jumpTo('et')">撲克牌武士小蛋糕</span>」搭配「<span class="jumpTo discount" onclick="jumpTo('dr')">暖心飲品</span>」者，每組合折<span class="hanLatin">5</span>元。
+                            <div class="used hidden" id="taotsan-holder">
+                                <span class="material-symbols-rounded">check</span>已購買<span class="hanLatin" id="taotsan-quantity">1</span>組，折價<span class="hanLatin" id="taotsan-discount">5</span>元。
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Accordion Item 2 -->
                 <div class="accordion-item">
-                    <button class="accordion-button" type="button">打卡</button>
+                    <button class="accordion-button" type="button" id="art-acc">越買越省</button>
+                    <div class="accordion-panel">
+                        <div class="accordion-body">
+                            購買部分「<span class="jumpTo art" onclick="jumpTo('ar')">文創商品</span>」可享有價格優惠。
+                            <div class="cardHolder">
+                                <div class="card">
+                                    <p>貼紙</p>
+                                    <p>第<span class="hanLatin">5</span>張起此商品全面六六折，即<span class="hanLatin">10</span>元。</p>
+                                </div>
+                                <div class="card">
+                                    <p>明信片</p>
+                                    <p>自選<span class="hanLatin">5</span>張為一組，每組優惠價<span class="hanLatin">110</span>元，多出者以原價計算。</p>
+                                </div>
+                            </div>
+                            <div class="used hidden" id="sticker-holder">
+                                <span class="material-symbols-rounded">check</span>已購買<span class="hanLatin" id="sticker-quantity">5</span>張貼紙，共省下<span class="hanLatin" id="sticker-discount">15</span>元。
+                            </div>
+                            <div class="used hidden" id="postcard-holder">
+                                <span class="material-symbols-rounded">check</span>已購買<span class="hanLatin" id="postcard-quantity">1</span>組明信片，共省下<span class="hanLatin" id="postcard-discount">5</span>元。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button" type="button">打卡轉盤</button>
                     <div class="accordion-panel">
                         <div class="accordion-body">
                             消費並打卡「@英語週帳號 #喝我 #吃我 #英語週slogan」即享有「轉盤」機會乙次。
                         </div>
                     </div>
                 </div>
-                <!-- Accordion Item 3 -->
                 <div class="accordion-item">
-                    <button class="accordion-button" type="button">遊戲</button>
+                    <button class="accordion-button" type="button">紅心遊戲</button>
                     <div class="accordion-panel">
                         <div class="accordion-body">
-                            消費滿百即享有遊戲機會。
-                            <div style="display: flex; flex-direction: row; margin-top: 1em;">
-                                <div style="flex: 1 1 auto; padding: calc(var(--gap) * 0.5);">
-                                    <p><strong>紅心皇后的槌球場</strong></p>
-                                    <p style="font-size: 80%;">每單以乙次為限。成功擲桌球入杯中即可獲得杯底所示獎勵，且未投進者不予重試。</p>
+                            消費滿百即享有遊戲機會，每單以乙次為限。
+                            <div class="cardHolder">
+                                <div class="card">
+                                    <p>紅心皇后的槌球場</p>
+                                    <p>成功擲桌球入杯中即可獲得杯底所示獎勵，未投進者不予重試。</p>
                                 </div>
-                                <div style="flex: 1 1 auto; padding: calc(var(--gap) * 0.5);">
-                                    <p><strong>紅心背叛者</strong></p>
-                                    <p style="font-size: 80%;">消費滿百起每<span class="hanLatin">10</span>元多乙次機會。自牌堆中抽牌並抽獲指定牌者贈送公關品或折扣，抽到機會用盡。</p>
+                                <div class="card">
+                                    <p>紅心背叛者</p>
+                                    <p>自由<span class="hanLatin">4</span>張<span class="hanLatin">Q</span>及<span class="hanLatin">1</span>張鬼牌組成的牌堆中抽牌，抽獲<span class="hanLatin">Q</span>者贈送公關品，鬼牌則為英語週折價券。</p>
                                 </div>
                             </div>
                         </div>
@@ -311,9 +587,9 @@
             </div>
             <!--<div style="flex: 1 1 auto"></div>-->
             <div class="centre" style="margin-top: auto">
-                <div id="total" style="font-size: 2em; font-weight: bold">總金額：0 元</div>
-                <input class="btn" type="button" value="重新" onclick="resetInputs()" style="background: #ffdad6;color: #410002;font-weight: bold;">
-                <input class="btn" type="submit" value="提交" id="submit-button" style="background: #ddea96;color: #191e00;font-weight: bold;" disabled>
+                <div id="total" style="font-size: 2em; font-weight: bold; margin-top: var(--gap);">總金額：0 元</div>
+                <input class="btn" type="button" value="重新" onclick="resetInputs()" style="background: #ffdad6; color: #410002; font-weight: bold; margin-top: calc(var(--gap) * 0.5);">
+                <input class="btn hidden" type="submit" value="提交" id="submit-button" style="background: #ddea96; color: #191e00; font-weight: bold; margin-top: calc(var(--gap) * 0.5);" disabled>
             </div>
         </div>
 
@@ -326,14 +602,25 @@
         </div>
     </form>
     <script src="js/_accordion.js"></script>
-    <script>
-        const form = document.getElementById('bootstrapForm');
+    <script>const form = document.getElementById('bootstrapForm');
         const clerkInput = document.getElementById('1726360308');
         const totalElement = document.getElementById('total');
         const submitButton = document.getElementById('submit-button');
         const receipt = document.getElementById('receipt');
         const receiptItems = document.getElementById('receipt-table');
         const totalReceipt = document.getElementById('total-receipt');
+
+        const taotsanHolder = document.getElementById('taotsan-holder');
+        const taotsanQuantity = document.getElementById('taotsan-quantity');
+        const taotsanDiscount = document.getElementById('taotsan-discount');
+        const stickerHolder = document.getElementById('sticker-holder');
+        const stickerQuantity = document.getElementById('sticker-quantity');
+        const stickerDiscount = document.getElementById('sticker-discount');
+        const stickerInput = document.getElementById('1485386383');
+        const postcardHolder = document.getElementById('postcard-holder');
+        const postcardQuantity = document.getElementById('postcard-quantity');
+        const postcardDiscount = document.getElementById('postcard-discount');
+        const postcardInput = document.getElementById('1866350321');
 
         form.addEventListener('input', updateTotal);
 
@@ -346,8 +633,12 @@
         let boughtRuhyah = 0;
         let boughtEton = 0;
         let boughtDrinks = 0;
+        let boughtStickers = 0;
+        let boughtPosrcards = 0;
         let discountA = 0;
         let discountB = 0;
+        let discountSticker = 0;
+        let discountPostcard = 0;
 
         resetVariables();
 
@@ -362,8 +653,9 @@
             boughtRuhyah = 0;
             boughtEton = 0;
             boughtDrinks = 0;
-            discountA = 0;
-            discountB = 0;
+            discountAB = 0;
+            discountSticker = 0;
+            discountPostcard = 0;
             updateTotal();
         }
 
@@ -395,9 +687,7 @@
             boughtRuhyah = countDiscountSet('ry');
             boughtEton = countDiscountSet('et');
             boughtDrinks = countDiscountSet('dr');
-            discountA = Math.min(boughtRuhyah, boughtDrinks);
-            boughtDrinks -= discountA;
-            discountB = Math.min(boughtEton, boughtDrinks);
+            discountAB = Math.min(boughtRuhyah + boughtEton, boughtDrinks);
 
             const inputs = form.querySelectorAll('input[type="number"]');
             inputs.forEach(input => {
@@ -409,17 +699,50 @@
                 }
             });
 
-            if (discountA > 0) {
-                total += discountA * -5;
-            }
+            if (discountAB > 0) {
+                const deduct = discountAB * 5;
+                total -= deduct;
 
-            if (discountB > 0) {
-                total += discountB * -5;
+                taotsanQuantity.textContent = discountAB;
+                taotsanDiscount.textContent = deduct;
             }
+            switchView(taotsanHolder, discountAB > 0);
+
+            boughtStickers = parseInt(stickerInput.value);
+            if (boughtStickers > 4) {
+                discountSticker = boughtStickers * 5;
+                total -= discountSticker;
+
+                stickerQuantity.textContent = boughtStickers;
+                stickerDiscount.textContent = discountSticker;
+            }
+            switchView(stickerHolder, boughtStickers > 4);
+
+            //(100 - ((deduct / (boughtStickers * stickerInput.dataset.price)) * 100)).toString().split('.')[0].replaceAll('0', '').replaceAll('1', '一').replaceAll('2', '二').replaceAll('3', '三').replaceAll('4', '四').replaceAll('5', '五').replaceAll('6', '六').replaceAll('7', '七').replaceAll('8', '八').replaceAll('9', '九');
+
+            boughtPostcards = parseInt(postcardInput.value);
+            if (boughtPostcards > 4) {
+                discountPostcard = ~~(boughtPostcards / 5) * 15;
+                total -= discountPostcard;
+
+                postcardQuantity.textContent = ~~(boughtPostcards / 5);
+                postcardDiscount.textContent = discountPostcard;
+            }
+            switchView(postcardHolder, boughtPostcards > 4);
 
             totalElement.innerHTML = `共<span class="priceTag">${total}</span>元`;
-            submitButton.style.display = total > 0 ? 'block' : 'none';
+
+            switchView(submitButton, total > 0)
             submitButton.disabled = total <= 0;
+
+            resizeOpenAccordion();
+        }
+
+        function pushReceiptItem(n, q, p) {
+            arrayName.push(n);
+            arrayQuantity.push(q);
+            arrayPrice.push(p);
+            arrayPxQ.push(p * q);
         }
 
         function displayReceipt() {
@@ -430,17 +753,26 @@
             inputs.forEach(input => {
                 const quantity = parseInt(input.value) || 0;
                 if (quantity > 0) {
-                    const name = input.dataset.name;
-                    const price = parseInt(input.dataset.price);
+                    let name = input.dataset.name;
+                    let price = parseInt(input.dataset.price);
 
-                    arrayName.push(name);
-                    arrayQuantity.push(quantity);
-                    arrayPrice.push(price);
-                    arrayPxQ.push(price * quantity);
+                    if (input.id === '1485386383' && quantity > 4) { // Stickers
+                        name += '（六六折）';
+                        price = 10;
+                    }
+                    else if (input.id === '1866350321' && quantity > 4) { // Postcards
+                        if (quantity % 5 > 0) {
+                            pushReceiptItem(name, quantity % 5, price);
+                        }
+
+                        pushReceiptItem(name + '（組）', ~~(boughtPostcards / 5), 110);
+
+                        return;
+                    }
+
+                    pushReceiptItem(name, quantity, price);
                 }
             });
-
-            let discountAB = discountA + discountB;
 
             if (discountAB > 0) {
                 arrayName.push('優惠方案・套餐');
@@ -460,6 +792,8 @@
             receipt.scrollIntoView({ behavior: 'smooth' });
 
             //totalElement.textContent = `總金額：0 元`;
+
+            switchView(submitButton, false);
         }
 
         function createTableRow(data) {
@@ -477,25 +811,36 @@
             });
 
             return `
-                    <table>
-                      <thead>
-                        <tr>
-                          <td class="name">品名</td>
-                          <td>數量</td>
-                          <td>單價</td>
-                          <td>總價</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        ${tableRows.join('')}
-                      <tr class="final">
-                          <td>合計新臺幣<span class="priceTag">${total}</span>元整</td>
-                          <td colspan="3">銀貨兩訖</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  `;
+                        <table>
+                          <thead>
+                            <tr>
+                              <td class="name">品名</td>
+                              <td>數量</td>
+                              <td>單價</td>
+                              <td>總價</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            ${tableRows.join('')}
+                          <tr class="final">
+                              <td>合計新臺幣<span class="priceTag">${total}</span>元整</td>
+                              <td colspan="3">銀貨兩訖</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      `;
         }
+
+        function switchView(element, condition) {
+            if (element.classList.contains('hidden') && condition) {
+                element.classList.remove('hidden')
+            }
+            else if (!element.classList.contains('hidden') && !condition) {
+                element.classList.add('hidden')
+            }
+        }
+
+        ///
 
         $('#bootstrapForm').submit(function (event) {
             event.preventDefault()
@@ -507,8 +852,51 @@
             })
         })
 
-        function jumpTo(divID) {
+        ///
+
+        document.addEventListener("click", (event) => {
+            const target = event.target;
+
+            if (target.classList.contains("less") || target.classList.contains("more")) {
+                const input = target.closest(".quantity").querySelector("input[type='number']");
+                if (!input) return;
+
+                let currentValue = parseInt(input.value) || 0;
+
+                if (target.classList.contains("less")) {
+                    currentValue = Math.max(0, currentValue - 1);
+                } else if (target.classList.contains("more")) {
+                    currentValue += 1;
+                }
+
+                input.value = currentValue > 0 ? currentValue : '';
+
+                const inputEvent = new Event("input", { bubbles: true });
+                input.dispatchEvent(inputEvent);
+            }
+        });
+
+        function jumpTo(divID, accID = '') {
             document.getElementById(divID).scrollIntoView();
+
+            if (!accID)
+                return;
+
+            const acc = document.getElementById(accID);
+
+            if (!acc.classList.contains('active'))
+                acc.dispatchEvent(new Event('click'));
+        }
+
+        function resizeOpenAccordion() {
+            const openAccordion = document.querySelector(".accordion-button.active");
+            if (openAccordion) {
+                const panel = openAccordion.nextElementSibling;
+                if (panel) {
+                    panel.style.maxHeight = null;
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            }
         }
 </script>
 </body>

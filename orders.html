@@ -142,18 +142,18 @@
             'drink-milopro': { name: 'ㄧㄌ美祿＋棉花糖', price: 35, },
             'drink-soup': { name: 'ㄧㄌ濃湯', price: 45, },
             'art-sticker': { name: 'ㄇㄒ貼紙', price: 15, },
+            'art-postcard': { name: 'ㄇㄒ明信片', price: 25, },
             'art-badge': { name: 'ㄇㄒ徽章', price: 40, },
-            'art-postcard': { name: 'ㄇㄒ明信片', price: 40, },
             'art-hang': { name: 'ㄇㄒ吊飾', price: 45, },
             'art-folder': { name: 'ㄇㄒ資料夾', price: 55, },
             'art-clothes': { name: 'ㄇㄒ系服', price: 340, },
         };
 
         const itemtype = {
-            'ㄖㄧ': '熱食・',
-            'ㄧㄉ': '甜食・',
-            'ㄧㄌ': '飲品・',
-            'ㄇㄒ': '美宣品・',
+            'ㄖㄧ': '熱・',
+            'ㄧㄉ': '甜・',
+            'ㄧㄌ': '飲・',
+            'ㄇㄒ': '美・',
         }
 
         let total = 0;
@@ -198,8 +198,12 @@
                 let boughtRuhyah = 0;
                 let boughtEton = 0;
                 let boughtDrinks = 0;
+                let boughtStickers = 0;
+                let boughtPostcards = 0
                 let discountA = 0;
                 let discountB = 0;
+                let discountSticker = 0;
+                let discountPostcard = 0;
 
                 const card = document.createElement('div');
                 card.classList.add('orderCard');
@@ -240,6 +244,12 @@
                             else if (name.startsWith(itemtype['ㄧㄌ'])) {
                                 boughtDrinks += quantity;
                             }
+                            else if (name === `${itemtype['ㄇㄒ']}貼紙`) {
+                                boughtStickers = quantity;
+                            }
+                            else if (name === `${itemtype['ㄇㄒ']}明信片`) {
+                                boughtPostcards = quantity;
+                            }
                         } else {
                             console.warn(`Missing item information for key ${key} of ID ${order[0]}`);
                         }
@@ -254,7 +264,7 @@
 
                 if (discountAB > 0) {
                     const item = document.createElement('tr');
-                    const arr = ['折價・套餐優惠', discountAB, -5, discountAB * -5].map(e => {
+                    const arr = ['折・套餐', discountAB, -5, discountAB * -5].map(e => {
                         const nameStyle = isNaN(e) ? ' class="name"' : '';
                         return `<td${nameStyle}>${e}</td>`;
                     });
@@ -262,6 +272,34 @@
                     tbody.appendChild(item);
 
                     total += discountAB * -5;
+                }
+
+                if (boughtStickers > 4) {
+                    discountSticker = boughtStickers * 5;
+
+                    const item = document.createElement('tr');
+                    const arr = ['折・貼紙', boughtStickers, -5, discountSticker * -1].map(e => {
+                        const nameStyle = isNaN(e) ? ' class="name"' : '';
+                        return `<td${nameStyle}>${e}</td>`;
+                    });
+                    item.innerHTML = arr.join('');
+                    tbody.appendChild(item);
+
+                    total -= discountSticker;
+                }
+
+                if (boughtPostcards > 4) {
+                    discountPostcard = ~~(boughtPostcards / 5) * 15;
+
+                    const item = document.createElement('tr');
+                    const arr = ['折・明信片組', ~~(boughtPostcards / 5), -15, discountPostcard * -1].map(e => {
+                        const nameStyle = isNaN(e) ? ' class="name"' : '';
+                        return `<td${nameStyle}>${e}</td>`;
+                    });
+                    item.innerHTML = arr.join('');
+                    tbody.appendChild(item);
+
+                    total -= discountPostcard;
                 }
 
                 const totalRow = document.createElement('tr');
