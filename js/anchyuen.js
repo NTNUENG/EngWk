@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function isFestivalTime() {
         const now = new Date();
         const year = now.getFullYear();
-        const startDate = new Date(year, 11, 2);
+        const startDate = new Date(year, 10, 27);
         const endDate = new Date(year, 11, 7);
         return now >= startDate && now <= endDate;
     }

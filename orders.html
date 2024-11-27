@@ -10,6 +10,38 @@
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Normal.min.css" />
     <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/TC/MisansTC-Bold.min.css" />
     <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/_tooltip.css">
+    <script>const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQeHdTsL6TnBGQimkS2NQUYJ9Vr6qBQRVwLfY0TMX4XYooThZ-QuhZdqPCmFWXbL80isg7dHihOn_DI/pub?output=csv";
+
+        let output = "";
+        let jsonData = [];
+
+        const dataReady = new Promise((resolve, reject) => {
+            fetch(url)
+                .then(r => r.text())
+                .then(t => {
+                    csvToJson(t);
+                    resolve();
+                })
+                .catch(err => reject(err));
+        });
+
+        function csvToJson(csvString) {
+            const rows = csvString.split("\n");
+            const headers = rows[0].split(",");
+            for (let i = 1; i < rows.length; i++) {
+                const values = rows[i].split(",");
+                const obj = {};
+                for (let j = 0; j < headers.length; j++) {
+                    const key = headers[j].trim();
+                    const value = values[j].trim();
+                    obj[key] = value;
+                }
+                jsonData.push(obj);
+            }
+            output = JSON.stringify(jsonData);
+        }</script>
+
     <style>
         .scrollBody {
             scroll-padding: 0;
@@ -71,6 +103,14 @@
             font-family: var(--monospace);
         }
 
+        [data-tooltip] {
+            text-decoration: underline dotted;
+        }
+
+            [data-tooltip]::after {
+                font-family: var(--monospace);
+            }
+
         #progress-bar-wrapper {
             position: sticky;
             top: calc(var(--gap) * 0.5);
@@ -125,8 +165,7 @@
             <!-- Orders will be dynamically added here -->
         </div>
     </div>
-    <script>
-        const items = {
+    <script>const items = {
             'ry-naisu': { name: 'ㄖㄧ奶酥', price: 25, },
             'ry-hsiangsuan': { name: 'ㄖㄧ香蒜', price: 30, },
             'ry-chococotton': { name: 'ㄖㄧ巧克力棉花糖', price: 30, },
@@ -160,29 +199,15 @@
 
         const orderContainer = document.getElementById('order-container');
 
-        const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQeHdTsL6TnBGQimkS2NQUYJ9Vr6qBQRVwLfY0TMX4XYooThZ-QuhZdqPCmFWXbL80isg7dHihOn_DI/pub?output=csv";
-        fetch(url)
-            .then(r => r.text())
-            .then(t => csvToJson(t));
-
-        let output = "";
-        function csvToJson(csvString) {
-            const rows = csvString.split("\n");
-            const headers = rows[0].split(",");
-            const jsonData = [];
-            for (let i = 1; i < rows.length; i++) {
-                const values = rows[i].split(",");
-                const obj = {};
-                for (let j = 0; j < headers.length; j++) {
-                    const key = headers[j].trim();
-                    const value = values[j].trim();
-                    obj[key] = value;
-                }
-                jsonData.push(obj);
-            }
-            output = JSON.stringify(jsonData);
-            displayReceipt()
-        }
+        window.onload = () => {
+            dataReady
+                .then(() => {
+                    displayReceipt();
+                })
+                .catch(err => {
+                    console.error("Failed to fetch data:", err);
+                });
+        };
 
         function displayReceipt() {
             let reversedOutput;
@@ -204,6 +229,8 @@
                 let discountB = 0;
                 let discountSticker = 0;
                 let discountPostcard = 0;
+                let discountDakah = false;
+                let discountCoupon = '';
 
                 const card = document.createElement('div');
                 card.classList.add('orderCard');
@@ -221,7 +248,10 @@
                 const tbody = document.createElement('tbody');
                 for (const [key, value] of Object.entries(order)) {
                     const quantity = parseInt(value);
-                    if (value > 0 && !['timestamp', 'clerk', 'ID-num', 'ID-surname'].includes(key)) {
+                    discountDakah = order.coaDakah === 'yes';
+                    discountCoupon = validateCouponKey(order.coaCoupon) ? order.coaCoupon : null;
+
+                    if (value > 0 && !['timestamp', 'clerk', 'IDnum', 'IDsurname'].includes(key)) {
                         if (items[key]) {
                             const item = document.createElement('tr');
                             const name = fullName(items[key].name);
@@ -251,11 +281,11 @@
                                 boughtPostcards = quantity;
                             }
                         } else {
-                            console.warn(`Missing item information for key ${key} of ID ${order[0]}`);
+                            console.warn(`Missing item information for key ${key} of ID ${order['clerk']}`);
                         }
                     }
                 }
-                    
+
                 discountA += Math.min(boughtRuhyah, boughtDrinks);
                 boughtDrinks -= discountA;
                 discountB += Math.min(boughtEton, boughtDrinks);
@@ -302,6 +332,32 @@
                     total -= discountPostcard;
                 }
 
+                if (discountDakah) {
+                    const item = document.createElement('tr');
+                    const arr = ['折・打卡轉盤', 1, -5, -5].map(e => {
+                        const nameStyle = isNaN(e) ? ' class="name"' : '';
+                        return `<td${nameStyle}>${e}</td>`;
+                    });
+                    item.innerHTML = arr.join('');
+                    tbody.appendChild(item);
+
+                    total -= 5;
+                }
+
+                if (discountCoupon) {
+                    const item = document.createElement('tr');
+                    const arr = ['折・券', 1, -5, -5].map(e => {
+                        if (isNaN(e))
+                            return `<td class="name"><div class="tooltip-right" data-tooltip="${discountCoupon}">${e}</div></td>`;
+                        else
+                            return `<td>${e}</td>`;
+                    });
+                    item.innerHTML = arr.join('');
+                    tbody.appendChild(item);
+
+                    total -= 5;
+                }
+
                 const totalRow = document.createElement('tr');
                 totalRow.classList.add('final');
                 totalRow.innerHTML = `<td colspan="4">合計新臺幣<span class="priceTag">${total}</span>元整</td>`;
@@ -334,8 +390,27 @@
             return processed;
         }
 
+        const SECRET_KEY = "SHUNGDANINGYUJHOU-";
+
+        function validateCouponKey(key) {
+            const regex = /^[A-Z]{3}-\d{3}-\d{4}$/;
+            if (!regex.test(key)) return false;
+
+            const param = key.split("-");
+            const base = key.slice(0, key.lastIndexOf("-"));
+            const checksum = param.pop();
+            const num = param[1];
+
+            return calculateChecksum(parseInt(num), base).padStart(4, '0') === checksum;
+        }
+
+        function calculateChecksum(num, base) {
+            const combined = SECRET_KEY.slice(num % 17) + base;
+            return combined.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0).toString().slice(-4);
+        }
+
         const CLASS_TIME_INTERVAL = 600000; // 600 seconds
-        const BREAK_TIME_INTERVAL = 60000; // 60 seconds
+        const BREAK_TIME_INTERVAL = 30000; // 30 seconds
         const progressBar = document.getElementById("progress-bar");
 
         const schedule = {
@@ -344,7 +419,6 @@
                 { start: "09:11", end: "10:59" },
                 { start: "10:21", end: "11:09" },
                 { start: "11:21", end: "12:09" },
-                { start: "12:21", end: "13:09" },
                 { start: "13:21", end: "14:09" },
                 { start: "14:21", end: "15:09" },
                 { start: "15:31", end: "16:19" },
@@ -355,8 +429,7 @@
                 { start: "09:00", end: "09:10" },
                 { start: "10:00", end: "10:20" },
                 { start: "11:10", end: "11:20" },
-                { start: "12:10", end: "12:20" },
-                { start: "13:10", end: "13:20" },
+                { start: "12:10", end: "13:20" },
                 { start: "14:10", end: "14:20" },
                 { start: "15:10", end: "15:30" },
                 { start: "16:20", end: "16:30" },
@@ -422,7 +495,6 @@
         }
 
         setDynamicReload();
-        progressBar.style.backgroundColor = getCurrentPeriod() === "classTime" ? 'var(--primary)' : 'var(--teritary)';
-    </script>
+        progressBar.style.backgroundColor = getCurrentPeriod() === "classTime" ? 'var(--primary)' : 'var(--teritary)';</script>
 </body>
 </html>
