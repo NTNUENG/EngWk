@@ -59,11 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
         errorDiv.appendChild(errorHeader);
     }
 
-    const TIME_LIMIT = 10 * 60 * 1000;
+    //const TIME_LIMIT = 10 * 60 * 1000;
 
     const encodedClerkName = getQueryParam('clerk');
     if (!encodedClerkName) {
         disablePage();
+        return;
+    }
+
+    if (encodedClerkName === 'test') {
+        clerkInput.readOnly = false;
         return;
     }
 
@@ -76,5 +81,5 @@ document.addEventListener("DOMContentLoaded", () => {
     clerkInput.value = clerkName;
     clearURLParameters();
 
-    setTimeout(() => { disablePage(2); }, TIME_LIMIT);
+    //setTimeout(() => { disablePage(2); }, TIME_LIMIT);
 });

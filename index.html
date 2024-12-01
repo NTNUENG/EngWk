@@ -92,6 +92,7 @@
         .container .quantity {
             display: flex;
             flex-direction: row;
+            margin-top: auto;
         }
 
             .container .quantity .material-symbols-rounded {
@@ -121,7 +122,6 @@
             .container .quantity input {
                 border-radius: 0;
                 background-color: transparent;
-                margin-top: auto;
                 z-index: 2;
             }
 
@@ -198,7 +198,7 @@
             .cardHolder .card {
                 flex: 1 1 auto;
                 padding: calc(var(--gap) * 0.5);
-                min-width: 10em;
+                min-width: min(10em, 50%);
             }
 
                 .cardHolder .card p:first-child {
@@ -216,6 +216,7 @@
 
             .used .material-symbols-rounded {
                 vertical-align: middle;
+                font-size: 1.2em;
             }
     </style>
 </head>
@@ -228,8 +229,18 @@
           id="bootstrapForm"
           method="POST">
 
-        <div class="header" id="top">
+        <div class="header" id="top" style="position: relative;">
             <h1>聖誕英語週點餐系統前臺</h1>
+
+            <div class="textSettings">
+                <div onclick="document.documentElement.style.setProperty('--font-size', '20px');document.documentElement.style.setProperty('--font-size-mobile', '14px');">預設</div>
+                <div onclick="document.documentElement.style.setProperty('--font-size', '25px');document.documentElement.style.setProperty('--font-size-mobile', '17px');">大</div>
+                <div onclick="document.documentElement.style.setProperty('--font-size', '30px');document.documentElement.style.setProperty('--font-size-mobile', '20px');">特大</div>
+            </div>
+
+            <div class="textSettings" style="left: 0;right: auto;">
+                <div><a href="tutorial.html" target="_blank">超詳細指南</a></div>
+            </div>
 
             <!-- Field type: "short" id: "1028344047" -->
             <fieldset style="display: block">
@@ -492,10 +503,10 @@
                 <!-- Field type: "short" id: "1063157919" -->
                 <fieldset>
                     <legend for="1063157919">ㄇㄒ檔案夾</legend>
-                    <div class="label">資料夾<div class="price">55$</div></div>
+                    <div class="label">資料夾<div class="price">50$</div></div>
                     <div class="quantity">
                         <span class="less material-symbols-rounded">remove</span>
-                        <input id="729785754" type="number" name="entry.729785754" placeholder="0" data-name="文創商品・資料夾" min="0" data-price="55">
+                        <input id="729785754" type="number" name="entry.729785754" placeholder="0" data-name="文創商品・資料夾" min="0" data-price="50">
                         <span class="more material-symbols-rounded">add</span>
                     </div>
                 </fieldset>
@@ -562,7 +573,7 @@
                     <button class="accordion-button" type="button">打卡轉盤</button>
                     <div class="accordion-panel">
                         <div class="accordion-body">
-                            消費並打卡「@英語週帳號 #喝我 #吃我 #英語週slogan」即享有「轉盤」機會乙次。
+                            消費並打卡「@ntnueng2024 #聖誕英語週 #吃我 #喝我」即享有「轉盤」機會乙次。
                             <div class="used">
                                 <!-- Field type: "checkboxes" id: "1349133076" -->
                                 <fieldset style="display: flex;flex-direction: row;align-items: center;">
@@ -571,7 +582,7 @@
                                         <input id="1143116670" type="checkbox" name="entry.1143116670" value="yes">
                                         <span class="slider round"></span>
                                     </label>
-                                    <label for="1143116670">顧客是否已打卡，且轉盤獲得「當次折價」？</label>
+                                    <label for="1143116670" id="dakah-label" style="text-align: left;">顧客已打卡，且轉盤獲得當次折扣。</label>
                                 </fieldset>
                             </div>
                         </div>
@@ -585,7 +596,7 @@
                             <div class="cardHolder">
                                 <div class="card">
                                     <p>紅心皇后的槌球場</p>
-                                    <p>成功擲桌球入杯中即可獲得杯底所示獎勵，未投進者不予重試。</p>
+                                    <p>成功擲桌球入杯中即可至摸彩箱摸公關品，未投進者不予重試。</p>
                                 </div>
                                 <div class="card">
                                     <p>紅心背叛者</p>
@@ -599,7 +610,13 @@
                     <button class="accordion-button" type="button">英語週折價券</button>
                     <div class="accordion-panel">
                         <div class="accordion-body">
-                            使用此券即可折價<span class="hanLatin">5</span>元。請注意，英語週折價券不可當次獲得即使用，須待來次主動於結帳前使用之，且每單以乙張為限。
+                            使用折價券即可折價<span class="hanLatin">5</span>元。
+                            <div class="cardHolder">
+                                <div class="card">
+                                    <p>請注意</p>
+                                    <p>英語週折價券不可當次獲得即使用，須待來次主動於結帳前出示使用之，且每單以乙張為限。</p>
+                                </div>
+                            </div>
                             <div class="used" id="sticker-holder">
                                 <!-- Field type: "short" id: "998956529" -->
                                 <fieldset>
@@ -660,10 +677,9 @@
         const postcardInput = document.getElementById('1866350321');
         const dakahInput = document.getElementById('1143116670');
 
-
         form.addEventListener('input', updateTotal);
 
-        let couponKeyValid = false;
+        let couponKeyValid = 0;
 
         let arrayName = new Array();
         let arrayQuantity = new Array();
@@ -777,13 +793,13 @@
             if (dakahInput.checked)
                 total -= 5;
 
-            if (couponKeyValid)
+            if (couponKeyValid === 1)
                 total -= 5;
 
             totalElement.innerHTML = `共<span class="priceTag">${Math.max(total, 0)}</span>元`;
 
-            switchView(submitButton, total > 0 && couponKeyValid);
-            submitButton.disabled = total <= 0 && !couponKeyValid;
+            switchView(submitButton, total > 0 && couponKeyValid != 0);
+            submitButton.disabled = total <= 0 || couponKeyValid === 0;
 
             resizeOpenAccordion();
         }
@@ -840,13 +856,13 @@
 
             const couponInput = document.getElementById('331688563');
 
-            if (couponKeyValid && couponInput.value.trim().length != 0) {
+            if (couponKeyValid === 1) {
                 arrayName.push('優惠方案・英語週優惠券');
                 arrayQuantity.push(1);
                 arrayPrice.push(-5);
                 arrayPxQ.push(-5);
 
-                useNewCoupon(couponInput.value.trim());
+                useNewCoupon(couponInput.value);
             }
 
             document.getElementById('recipient').innerHTML = `＃<span class="hanLatin" style="padding-left: 0;">${document.getElementById('780771985').value}</span>${document.getElementById('553056708').value}｜<span id="receipt-time"></span>`
@@ -1034,23 +1050,29 @@
         function triggerValidate(input) {
             input.value = input.value.trim();
             const key = input.value;
-            const isValid = validateCouponKey(key);
 
-            if (couponJsonOutput.includes(key) && key.length != 0) {
-                input.setCustomValidity("此折價券已被使用。");
-                couponKeyValid = false;
-            }
-            else if (isValid || key.length === 0) {
+            if (key.length === 0) {
                 input.setCustomValidity("");
-                couponKeyValid = true;
+                couponKeyValid = 2;
+                return;
+            }
+
+            const isValid = validateCouponKey(key);
+            if (couponJsonOutput.includes(key)) {
+                input.setCustomValidity("此折價券已被使用。");
+                couponKeyValid = 0;
+            }
+            else if (isValid) {
+                input.setCustomValidity("");
+                couponKeyValid = 1;
             }
             else {
                 input.setCustomValidity("折價券代碼無效。");
-                couponKeyValid = false;
+                couponKeyValid = 0;
             }
 
-            switchView(submitButton, total > 0 && couponKeyValid);
-            submitButton.disabled = total <= 0 && !couponKeyValid;
+            switchView(submitButton, total > 0 && couponKeyValid != 0);
+            submitButton.disabled = total <= 0 || couponKeyValid === 0;
 
             updateTotal();
         }

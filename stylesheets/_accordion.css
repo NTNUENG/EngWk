@@ -2,7 +2,6 @@
     --border-style: 1px solid var(--border);
     border-radius: calc(var(--gap) * 0.25);
     border: var(--border-style);
-    overflow: hidden;
     background-color: #fbfaed;
 }
 
